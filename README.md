@@ -7,7 +7,7 @@ necessárias.
 
 # rodando o projeto.:
 clicar na classe <b>DonazioneApplication</b>, dentro do pacote <b>br.com.donazo.donazione</b>, e executar a mesma como uma aplicação Java. No eclipse,
-botao direito, run as Java Application. O projeto roda no endereço <a>http://localhost:8280/</a> porém nao existe ainda página index :-( 
+botao direito, run as Java Application. O projeto roda no endereço <a>http://localhost:8280/donazione/index.xhtml</a> 
 
 # banco de dados.: 
 <ul>
