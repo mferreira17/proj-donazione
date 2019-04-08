@@ -15,9 +15,38 @@
 
 <h:body>
 
-<p:outputLabel>Nome.: </p:outputLabel>
-<p:inputText id="nome"/>
+	<h:form id="formCadCampanha">
+		<p:accordionPanel>
+			<p:tab title="Informações Gerais da Campanha">
+				<p:panelGrid columns="2">
 
+					<p:outputLabel value="Nome:" />
+					<p:inputText id="nome" value="#{campanha.nome}" />
+
+					<p:outputLabel value="Data de Início:" />
+					<p:calendar id="dtInicio" value="#{campanha.cadastro}"
+						pattern="dd/mm/yyyy" mask="99/99/9999" lang="pt_BR" />
+
+					<p:outputLabel value="Data de Término:" />
+					<p:calendar id="dtFim" value="#{campanha.dataFim}"
+						pattern="dd/mm/yyyy" mask="99/99/9999" lang="pt_BR" />
+
+					<p:outputLabel value="Descrição:" />
+					<p:inputTextarea id="descricao" value="#{campanha.descricao}"
+						autoResize="true" rows="5" />
+
+					<p:outputLabel value="Habilitada:" />
+					<p:inputSwitch value="#{campanha.habilitada}" offLabel="Não"
+						onLabel="Sim" />
+
+				</p:panelGrid>
+			</p:tab>
+			<p:tab title="Ações Vinculadas">
+				<p:outputLabel value="Ações de Campanha:" />
+				<p:pickList></p:pickList>
+			</p:tab>
+		</p:accordionPanel>
+	</h:form>
 </h:body>
-
+<h:outputScript name="/static/js/traducao-calendar.js" />
 </html>
