@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -86,9 +87,10 @@ public class Campanha implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "campanha")
     private List<ItemCampanha> itemCampanhaList;
 
+    
     public Campanha() {
     }
-
+   
     public Campanha(Integer id) {
         this.id = id;
     }

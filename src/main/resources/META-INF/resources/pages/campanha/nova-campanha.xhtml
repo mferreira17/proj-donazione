@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="code">
+		<h:body>
+			<h:form id="formCadCampanha">
+				<p:accordionPanel>
+					<p:tab title="Informações Gerais da Campanha">
+						<p:panelGrid columns="2">
+
+							<p:outputLabel value="Nome:" />
+							<p:inputText id="nome" value="#{campanhaBean.campanha.nome}" />
+
+							<p:outputLabel value="Data de Início:" />
+							<p:calendar id="dtInicio"
+								value="#{campanhaBean.campanha.cadastro}" pattern="dd/mm/yyyy"
+								mask="99/99/9999" lang="pt_BR" />
+
+							<p:outputLabel value="Data de Término:" />
+							<p:calendar id="dtFim" value="#{campanhaBean.campanha.dataFim}"
+								pattern="dd/mm/yyyy" mask="99/99/9999" lang="pt_BR" />
+
+							<p:outputLabel value="Descrição:" />
+							<p:inputTextarea id="descricao"
+								value="#{campanhaBean.campanha.descricao}" autoResize="true"
+								rows="5" />
+
+							<p:outputLabel value="Habilitada:" />
+							<p:inputSwitch value="#{campanhaBean.campanha.habilitada}"
+								offLabel="Não" onLabel="Sim" />
+
+						</p:panelGrid>
+					</p:tab>
+					<p:tab title="Ações Vinculadas">
+						<p:outputLabel value="Ações de Campanha:" />
+						<p:pickList value="#{campanhaBean.acoesDualList}" var="acao"
+							itemLabel="#{acao}" itemValue="#{acao}" />
+					</p:tab>
+				</p:accordionPanel>
+			</h:form>
+		</h:body>
+		<h:outputScript name="/static/js/traducao-calendar.js" />
+	</ui:define>
+</ui:composition>
