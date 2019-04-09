@@ -7,19 +7,14 @@
 	template="/admin.xhtml">
 
 	<ui:define name="head">
-		<h:outputStylesheet
-			library="css"
-			name="showcase.css" />
-		<h:outputStylesheet
-			library="css"
-			name="prism.css" />
+			
+		<h:outputStylesheet name="/static/css/showcase.css"/>
+		<h:outputStylesheet	name="/static/css/prism.css" />
+		
 		<link
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
-		<h:outputStylesheet
-			library="webjars"
-			name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
-
+		
 		<link
 			rel="shortcut icon"
 			type="image/x-icon"
@@ -35,7 +30,7 @@
     </ui:define>
 
 	<ui:define name="logo-mini">
-	<p:graphicImage style="width: 60%;" library="images" name="favicon.svg" />
+		<p:graphicImage value="/static/images/favicon.svg" style="width: 60%;"/>
     </ui:define>
 
 	<ui:define name="menu-begin">
@@ -66,11 +61,8 @@
 			<i>v1.0</i>
 		</div>
 
-		<h:outputScript
-			library="js"
-			name="prism.js"
-			target="head" />
+		<h:outputScript name="/static/js/prism.js"/>
+		<h:outputScript name="/static/js/traducao-calendar.js"/>	
 	</ui:define>
-
 
 </ui:composition>
