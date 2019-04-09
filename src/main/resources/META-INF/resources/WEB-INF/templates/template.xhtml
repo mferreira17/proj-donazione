@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/admin.xhtml">
+
+	<ui:define name="head">
+		<h:outputStylesheet
+			library="css"
+			name="showcase.css" />
+		<h:outputStylesheet
+			library="css"
+			name="prism.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+		<h:outputStylesheet
+			library="webjars"
+			name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
+
+		<link
+			rel="shortcut icon"
+			type="image/x-icon"
+			href="#{resource['images/favicon.svg']}" />
+
+		<title>Donazone |<ui:insert name="title-page"> Área administrativa </ui:insert></title>
+
+
+	</ui:define>
+
+	<ui:define name="logo-lg">
+		<strong>Dona</strong>zone
+    </ui:define>
+
+	<ui:define name="logo-mini">
+	<p:graphicImage style="width: 60%;" library="images" name="favicon.svg" />
+    </ui:define>
+
+	<ui:define name="menu-begin">
+		<ui:include src="/WEB-INF/includes/menu-search.xhtml" />
+	</ui:define>
+
+	<ui:define name="menu">
+		<ui:include src="/WEB-INF/includes/menu.xhtml" />
+	</ui:define>
+
+	<ui:define name="top-menu">
+		<ui:include src="/WEB-INF/includes/top-menu.xhtml" />
+	</ui:define>
+
+	<ui:define name="content-end">
+		<section class="content">
+			<ui:insert name="code" />
+		</section>
+	</ui:define>
+
+	<ui:define name="footer">
+		<a
+			target="_blank"
+			href="#/"> Copyright (C) 2019 - EAS UFPA </a>
+		<div
+			class="pull-right hidden-xs"
+			style="color: gray">
+			<i>v1.0</i>
+		</div>
+
+		<h:outputScript
+			library="js"
+			name="prism.js"
+			target="head" />
+	</ui:define>
+
+
+</ui:composition>
