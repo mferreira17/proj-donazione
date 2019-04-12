@@ -2,6 +2,7 @@ package br.com.donazo.donazione.entities;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -47,41 +47,31 @@ public class Colaborador implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 200)
     @Column(name = "nome")
     private String nome;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 200)
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 11)
     @Column(name = "celular")
     private String celular;
-    @Size(max = 200)
     @Column(name = "logradouro")
     private String logradouro;
-    @Size(max = 45)
     @Column(name = "numero")
     private String numero;
-    @Size(max = 45)
     @Column(name = "complemento")
     private String complemento;
-    @Size(max = 100)
     @Column(name = "bairro")
     private String bairro;
-    @Size(max = 10)
     @Column(name = "cep")
     private String cep;
-    @Size(max = 18)
     @Column(name = "cpfOuCnpj")
     private String cpfOuCnpj;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "senha")
     private String senha;
     @Basic(optional = false)
@@ -90,13 +80,10 @@ public class Colaborador implements Serializable {
     private Character perfil;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "profissao")
     private String profissao;
-    @Size(max = 250)
     @Column(name = "comoColaborar")
     private String comoColaborar;
-    @Size(max = 10)
     @Column(name = "confirmacao")
     private String confirmacao;
     @OneToMany(mappedBy = "colaborador")
