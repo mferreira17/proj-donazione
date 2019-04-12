@@ -5,35 +5,86 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-	<ul class="sidebar-menu">
+	<ul
+		class="sidebar-menu"
+		data-widget="tree">
 		<li><p:link href="/index.xhtml">
 				<i class="fa fa-home"></i>
 				<span>Home</span>
 			</p:link></li>
 
+		<!-- COLABORADOR -->
 		<li class="header">Colaborador</li>
-		<li><p:link href="/pages/colaborador/lista-colaborador.xhtml">
-				<i class="fa fa-user-plus"></i>
-				<span>Colaborador</span>
-			</p:link></li>
+		<li class="treeview"><a href="#"> <i class="fa fa-group"></i>
+				<span>Colaboradores</span> <span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+			</span>
+		</a>
+			<ul class="treeview-menu">
+				<li><p:link outcome="/pages/colaborador/lista-colaboradores.xhtml">
+						<i class="fa fa-smile-o"></i>
+						<span>Exibir Colaboradores</span>
+					</p:link></li>
+				<li><p:link href="/pages/colaborador/novo-colaborador.xhtml">
+						<i class="fa fa-file"></i>
+						<span>Novo Colaborador</span>
+					</p:link></li>
+			</ul></li>
 
+		<!-- CAMPANHAS -->
 		<li class="header">Campanha</li>
-		<li><p:link href="/pages/campanha/lista-campanhas.xhtml">
-				<i class="fa fa-bullhorn"></i>
-				<span>Campanhas</span>
-			</p:link></li>
+		<li class="treeview"><a href="#"> <i class="fa fa-flag"></i>
+				<span>Campanhas</span> <span class="pull-right-container"> <i
+					class="fa fa-angle-left pull-right"></i>
+			</span>
+		</a>
+			<ul class="treeview-menu">
+				<li><p:link outcome="/pages/campanha/lista-campanhas.xhtml">
+						<i class="fa fa-flag-o"></i>
+						<span>Exibir Campanhas</span>
+					</p:link></li>
+				<li><p:link outcome="/pages/campanha/nova-campanha.xhtml">
+						<i class="fa fa-file"></i>
+						<span>Nova Campanha</span>
+					</p:link></li>
+			</ul></li>
 
+		<!-- ACOES -->
 		<li class="header">Ação</li>
-		<li><p:link href="/pages/default/lista-default.xhtml">
-				<i class="fa fa-blind"></i>
-				<span>Ações</span>
-			</p:link></li>
+		<li class="treeview"><a href="#"> <i class="fa fa-blind"></i>
+				<span>Ações</span> <span class="pull-right-container"> <i
+					class="fa fa-angle-left pull-right"></i>
+			</span>
+		</a>
+			<ul class="treeview-menu">
+				<li><p:link outcome="/pages/acao/lista-acoes.xhtml">
+						<i class="fa fa-star"></i>
+						<span>Exibir Ações</span>
+					</p:link></li>
+				<li><p:link outcome="/pages/acao/nova-acao.xhtml">
+						<i class="fa fa-file"></i>
+						<span>Nova Ação</span>
+					</p:link></li>
+			</ul></li>
 
-		<li class="header">Doação</li>
-		<li><p:link href="/pages/doacao/lista-doacao.xhtml">
-				<i class="fa fa-fire"></i>
-				<span>Doações</span>
-			</p:link></li>
+
+		<!-- DOACOES -->
+		<li class="header">Doações</li>
+		<li class="treeview"><a href="#"> <i class="fa fa-heart"></i>
+				<span>Doação</span> <span class="pull-right-container"> <i
+					class="fa fa-angle-left pull-right"></i>
+			</span>
+		</a>
+			<ul class="treeview-menu">
+			<li><p:link outcome="/pages/doacao/lista-doacoes.xhtml">
+						<i class="fa fa-heart-o"></i>
+						<span>Exibir Doações</span>
+					</p:link></li>
+				<li><p:link outcome="/pages/doacao/nova-doacao.xhtml">
+						<i class="fa fa-file"></i>
+						<span>Nova Doação</span>
+					</p:link></li>
+			</ul></li>
 	</ul>
 
 
