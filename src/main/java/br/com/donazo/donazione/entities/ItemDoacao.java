@@ -47,7 +47,7 @@ public class ItemDoacao implements Serializable {
     @ManyToOne
     private Campanha campanha;
     @JoinColumn(name = "doacao", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Doacao doacao;
     @JoinColumn(name = "item_campanha", referencedColumnName = "id")
     @ManyToOne
