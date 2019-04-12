@@ -32,9 +32,4 @@ public class DoacaoBean {
 	public void setDoacoes(List<Doacao> doacoes) {
 		this.doacoes = doacoes;
 	}
-	
-	
-	
-	
-
 }
