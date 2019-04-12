@@ -1,4 +1,4 @@
-package br.com.donazo.donazione.beans;
+package br.com.donazo.donazione.repositorios;
 
 import org.springframework.data.repository.CrudRepository;
 

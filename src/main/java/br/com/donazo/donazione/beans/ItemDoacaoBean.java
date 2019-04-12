@@ -9,6 +9,7 @@ import javax.inject.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.donazo.donazione.entities.ItemDoacao;
+import br.com.donazo.donazione.repositorios.ItemDoacaoRepository;
 
 @Named
 @RequestScoped
