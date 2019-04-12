@@ -5,41 +5,61 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 
-	<ui:define name="code">
-			<h:form id="formCadCampanha">
-				<p:accordionPanel>
-					<p:tab title="Informações Gerais da Campanha">
-						<p:panelGrid columns="2">
+	<ui:define name="body">
+		<h:form id="formCadCampanha">
+			<p:accordionPanel>
+				<p:tab title="Informações Gerais da Campanha">
+					<p:panelGrid columns="2">
 
-							<p:outputLabel value="Nome:" />
-							<p:inputText id="nome" value="#{campanhaBean.campanha.nome}" />
+						<p:outputLabel value="Nome:" />
+						<p:inputText id="nome" value="#{campanhaBean.campanha.nome}" />
 
-							<p:outputLabel value="Data de Início:" />
-							<p:calendar id="dtInicio"
-								value="#{campanhaBean.campanha.cadastro}" pattern="dd/mm/yyyy"
-								mask="99/99/9999" lang="pt_BR" />
+						<p:outputLabel value="Data de Início:" />
+						<p:calendar id="dtInicio"
+							value="#{campanhaBean.campanha.cadastro}" pattern="dd/mm/yyyy"
+							mask="99/99/9999" lang="pt_BR" />
 
-							<p:outputLabel value="Data de Término:" />
-							<p:calendar id="dtFim" value="#{campanhaBean.campanha.dataFim}"
-								pattern="dd/mm/yyyy" mask="99/99/9999" lang="pt_BR" />
+						<p:outputLabel value="Data de Término:" />
+						<p:calendar id="dtFim" value="#{campanhaBean.campanha.dataFim}"
+							pattern="dd/mm/yyyy" mask="99/99/9999" lang="pt_BR" />
 
-							<p:outputLabel value="Descrição:" />
-							<p:inputTextarea id="descricao"
-								value="#{campanhaBean.campanha.descricao}" autoResize="true"
-								rows="5" />
+						<p:outputLabel value="Descrição:" />
+						<p:inputTextarea id="descricao"
+							value="#{campanhaBean.campanha.descricao}" autoResize="true"
+							rows="5" />
 
-							<p:outputLabel value="Habilitada:" />
-							<p:inputSwitch value="#{campanhaBean.campanha.habilitada}"
-								offLabel="Não" onLabel="Sim" />
+						<p:outputLabel value="Habilitada:" />
+						<p:inputSwitch value="#{campanhaBean.campanha.habilitada}"
+							offLabel="Não" onLabel="Sim" />
 
-						</p:panelGrid>
-					</p:tab>
-					<p:tab title="Ações Vinculadas">
-						<p:outputLabel value="Ações de Campanha:" />
-						<p:pickList value="#{campanhaBean.acoesDualList}" var="acao"
-							itemLabel="#{acao}" itemValue="#{acao}" />
-					</p:tab>
-				</p:accordionPanel>
-			</h:form>
+					</p:panelGrid>
+				</p:tab>
+				<p:tab title="Ações Vinculadas">
+					<p:outputLabel value="Ações de Campanha:" />
+					<p:pickList value="#{campanhaBean.acoesDualList}" var="acao"
+						itemLabel="#{acao}" itemValue="#{acao}" />
+				</p:tab>
+				<p:tab title="Meta Esperada">
+
+					<p:panelGrid columns="2">
+
+						<p:outputLabel value="Expectativa Financeira (R$) : " />
+						<p:inputMask mask="R$ 9999.9999,99" />
+
+						<p:outputLabel value="Possui Expectativa Material?" />
+						<p:selectOneRadio>
+							<f:selectItem itemLabel="SIM" itemValue="" />
+							<f:selectItem itemLabel="NÃO" itemValue="" />
+						</p:selectOneRadio>
+
+						<p:outputLabel value="Itens de Doação:" />
+						<p:pickList value="#{campanhaBean.doacoesDualList}" var="doacao"
+							itemLabel="#{doacao}" itemValue="#{doacao}" />
+
+					</p:panelGrid>
+
+				</p:tab>
+			</p:accordionPanel>
+		</h:form>
 	</ui:define>
 </ui:composition>

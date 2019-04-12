@@ -86,7 +86,7 @@ public class Campanha implements Serializable {
     private List<ItemDoacao> itemDoacaoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "campanha")
     private List<ItemCampanha> itemCampanhaList;
-
+    
     
     public Campanha() {
     }
