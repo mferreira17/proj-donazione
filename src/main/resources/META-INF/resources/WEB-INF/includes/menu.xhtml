@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition
-	xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
 
-	<ul
-		class="sidebar-menu"
-		data-widget="tree">
+	<ul class="sidebar-menu" data-widget="tree">
 		<li><p:link href="/index.xhtml">
 				<i class="fa fa-home"></i>
 				<span>Home</span>
@@ -21,7 +18,8 @@
 			</span>
 		</a>
 			<ul class="treeview-menu">
-				<li><p:link outcome="/pages/colaborador/lista-colaboradores.xhtml">
+				<li><p:link
+						outcome="/pages/colaborador/lista-colaboradores.xhtml">
 						<i class="fa fa-smile-o"></i>
 						<span>Exibir Colaboradores</span>
 					</p:link></li>
@@ -76,7 +74,7 @@
 			</span>
 		</a>
 			<ul class="treeview-menu">
-			<li><p:link outcome="/pages/doacao/lista-doacoes.xhtml">
+				<li><p:link outcome="/pages/doacao/lista-doacoes.xhtml">
 						<i class="fa fa-heart-o"></i>
 						<span>Exibir Doações</span>
 					</p:link></li>
@@ -85,7 +83,25 @@
 						<span>Nova Doação</span>
 					</p:link></li>
 			</ul></li>
+	
+	<!-- ITENS DE DOACOES -->
+			
+			<li class="header">Itens de Doações</li>
+		<li class="treeview"><a href="#"> <i class="fa fa-heart"></i>
+				<span>Itens de Doação</span> <span class="pull-right-container"> <i
+					class="fa fa-angle-left pull-right"></i>
+			</span>
+		</a>
+			<ul class="treeview-menu">
+				<li><p:link outcome="/pages/itemdoacao/lista-item-doacao.xhtml">
+						<i class="fa fa-file"></i>
+						<span>Exibir Itens de Doação</span>
+					</p:link></li>
+				<li><p:link outcome="/pages/itemdoacao/item-doacao.xhtml">
+						<i class="fa fa-file"></i>
+						<span>Novo Item de Doação</span>
+					</p:link></li>
+			</ul></li>
 	</ul>
-
 
 </ui:composition>
