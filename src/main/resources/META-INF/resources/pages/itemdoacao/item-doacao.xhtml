@@ -42,8 +42,9 @@
 									titleStyleClass="box-solid">
 									<p:panelGrid columns="2">
 
-										<p:outputLabel value="Descrição:" />
-										<p:inputText id="nome" value="#{docaoBean.campanha.descricao}" />
+										<p:outputLabel for="descricao" value="Descrição:" />
+										<p:inputText id="descricao" value="#{itemDoacaoBean.itemDoacao.descricao}"/>
+										<p:message for="descricao"/>
 
 									</p:panelGrid>
 								</p:tab>
@@ -53,7 +54,7 @@
 					</div>
 					<div class="hidden-sm hidden-xs">
 						<p:commandButton value="Salvar" update="@form" icon="fa fa-check"
-							styleClass="btn-primary" />
+							styleClass="btn-primary" action="#{itemDoacaoBean.salvar}" />
 
 
 						<p:commandButton value="Excluir" process="@this"

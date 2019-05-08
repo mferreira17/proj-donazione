@@ -34,13 +34,13 @@ public class ItemDoacao implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 80)
+    @NotNull(message = "Este campo não pode ser nulo")
+    //@Size(min = 1, max = 80)
     @Column(name = "descricao")
     private String descricao;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
-    @NotNull
+    //@NotNull(message = "Valor não pode ser Nulo")
     @Column(name = "valor")
     private BigDecimal valor;
     @JoinColumn(name = "campanha", referencedColumnName = "id")
