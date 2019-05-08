@@ -33,6 +33,7 @@
 			<div class="box box-primary">
 				<div class="box-header with-border">
 
+				<p:messages/>
 
 					<div class="ui-g ui-fluid">
 						<div class="ui-g-12">
@@ -40,11 +41,11 @@
 							<p:accordionPanel>
 								<p:tab title="Informações Gerais de Item"
 									titleStyleClass="box-solid">
-									<p:panelGrid columns="2">
+									<p:panelGrid columns="2" border="0">
+
 
 										<p:outputLabel for="descricao" value="Descrição:" />
 										<p:inputText id="descricao" value="#{itemDoacaoBean.itemDoacao.descricao}"/>
-										<p:message for="descricao"/>
 
 									</p:panelGrid>
 								</p:tab>

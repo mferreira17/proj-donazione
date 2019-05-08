@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,22 +34,25 @@ public class ItemDoacao implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
+
+    @NotBlank(message = "Este campo não pode ser em branco")
     @NotNull(message = "Este campo não pode ser nulo")
-    //@Size(min = 1, max = 80)
-    @Column(name = "descricao")
+    @Column(name = "descricao",nullable = false)
     private String descricao;
+
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
     //@NotNull(message = "Valor não pode ser Nulo")
     @Column(name = "valor")
     private BigDecimal valor;
+
     @JoinColumn(name = "campanha", referencedColumnName = "id")
     @ManyToOne
     private Campanha campanha;
+
     @JoinColumn(name = "doacao", referencedColumnName = "id")
-    @ManyToOne(optional = true)
+    @ManyToOne
     private Doacao doacao;
+
     @JoinColumn(name = "item_campanha", referencedColumnName = "id")
     @ManyToOne
     private ItemCampanha itemCampanha;
