@@ -31,12 +31,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Colaborador.findByComplemento", query = "SELECT c FROM Colaborador c WHERE c.complemento = :complemento")
     , @NamedQuery(name = "Colaborador.findByBairro", query = "SELECT c FROM Colaborador c WHERE c.bairro = :bairro")
     , @NamedQuery(name = "Colaborador.findByCep", query = "SELECT c FROM Colaborador c WHERE c.cep = :cep")
-    , @NamedQuery(name = "Colaborador.findByCpfOuCnpj", query = "SELECT c FROM Colaborador c WHERE c.cpfOuCnpj = :cpfOuCnpj")
     , @NamedQuery(name = "Colaborador.findBySenha", query = "SELECT c FROM Colaborador c WHERE c.senha = :senha")
     , @NamedQuery(name = "Colaborador.findByPerfil", query = "SELECT c FROM Colaborador c WHERE c.perfil = :perfil")
     , @NamedQuery(name = "Colaborador.findByProfissao", query = "SELECT c FROM Colaborador c WHERE c.profissao = :profissao")
-    , @NamedQuery(name = "Colaborador.findByComoColaborar", query = "SELECT c FROM Colaborador c WHERE c.comoColaborar = :comoColaborar")
-    , @NamedQuery(name = "Colaborador.findByConfirmacao", query = "SELECT c FROM Colaborador c WHERE c.confirmacao = :confirmacao")})
+	})
 public class Colaborador implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,8 +66,6 @@ public class Colaborador implements Serializable {
     private String bairro;
     @Column(name = "cep")
     private String cep;
-    @Column(name = "cpfOuCnpj")
-    private String cpfOuCnpj;
     @Basic(optional = false)
     @NotNull
     @Column(name = "senha")
@@ -82,10 +78,6 @@ public class Colaborador implements Serializable {
     @NotNull
     @Column(name = "profissao")
     private String profissao;
-    @Column(name = "comoColaborar")
-    private String comoColaborar;
-    @Column(name = "confirmacao")
-    private String confirmacao;
     @OneToMany(mappedBy = "colaborador")
     private List<Doacao> doacaoList;
 
@@ -178,14 +170,6 @@ public class Colaborador implements Serializable {
         this.cep = cep;
     }
 
-    public String getCpfOuCnpj() {
-        return cpfOuCnpj;
-    }
-
-    public void setCpfOuCnpj(String cpfOuCnpj) {
-        this.cpfOuCnpj = cpfOuCnpj;
-    }
-
     public String getSenha() {
         return senha;
     }
@@ -208,22 +192,6 @@ public class Colaborador implements Serializable {
 
     public void setProfissao(String profissao) {
         this.profissao = profissao;
-    }
-
-    public String getComoColaborar() {
-        return comoColaborar;
-    }
-
-    public void setComoColaborar(String comoColaborar) {
-        this.comoColaborar = comoColaborar;
-    }
-
-    public String getConfirmacao() {
-        return confirmacao;
-    }
-
-    public void setConfirmacao(String confirmacao) {
-        this.confirmacao = confirmacao;
     }
 
     @XmlTransient
