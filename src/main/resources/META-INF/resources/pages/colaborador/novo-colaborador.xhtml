@@ -1,5 +1,4 @@
-<ui:composition
-	xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -17,8 +16,7 @@
 
 	<ui:define name="description">
         Está página referece ao cadastro de um novo <p:link
-			value="Colaborador"
-			href="#" />.
+			value="Colaborador" href="#" />.
     </ui:define>
 
 	<ui:define name="metadata">
@@ -65,13 +63,6 @@
 											value="#{colaboradorBean.colaborador.email }" />
 
 										<p:outputLabel
-											for="cpfOuCnpj"
-											value="CPF ou CNPJ" />
-										<p:inputText
-											id="cpfOuCnpj"
-											value="#{colaboradorBean.colaborador.cpfOuCnpj }" />
-
-										<p:outputLabel
 											for="celular"
 											value="Celular" />
 										<p:inputMask
@@ -91,10 +82,10 @@
 										columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5">
 
 										<p:outputLabel
-											for="logradouro"
-											value="Logradouro" />
+											for="endereco"
+											value="Endereco" />
 										<p:inputText
-											id="logradouro"
+											id="endereco"
 											value="#{colaboradorBean.colaborador.logradouro }" />
 
 										<p:outputLabel
@@ -120,7 +111,7 @@
 
 										<p:outputLabel
 											for="cep"
-											value="Cep" />
+											value="CEP" />
 										<p:inputText
 											id="cep"
 											value="#{colaboradorBean.colaborador.cep }" />
@@ -157,19 +148,6 @@
 											id="profissao"
 											value="#{colaboradorBean.colaborador.profissao }" />
 
-										<p:outputLabel
-											for="comoColaborar"
-											value="Como Colaborar" />
-										<p:inputText
-											id="comoColaborar"
-											value="#{colaboradorBean.colaborador.comoColaborar }" />
-
-										<p:outputLabel
-											for="confirmacao"
-											value="Confirmação" />
-										<p:inputText
-											id="confirmacao"
-											value="#{colaboradorBean.colaborador.confirmacao }" />
 									</p:panelGrid>
 
 								</p:tab>
