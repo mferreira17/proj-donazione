@@ -1,17 +1,14 @@
 package br.com.donazo.donazione.beans;
 
-import java.util.List;
+import br.com.donazo.donazione.entities.ItemDoacao;
+import br.com.donazo.donazione.repositorios.ItemDoacaoRepository;
+import br.com.donazo.donazione.utils.MessagesUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import br.com.donazo.donazione.entities.Doacao;
-import br.com.donazo.donazione.entities.ItemDoacao;
-import br.com.donazo.donazione.repositorios.ItemDoacaoRepository;
-import br.com.donazo.donazione.utils.MessagesUtil;
+import java.util.List;
 
 @Named
 @RequestScoped
@@ -25,7 +22,7 @@ public class ItemDoacaoBean {
 	private ItemDoacao itemDoacao;
 
 	@PostConstruct
-	public void init() {
+	private void init() {
 		itemDoacao = new ItemDoacao();
 		itensDoacao = (List<ItemDoacao>) repository.findAll();
 	}

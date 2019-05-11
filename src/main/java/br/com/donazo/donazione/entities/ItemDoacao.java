@@ -1,60 +1,38 @@
 package br.com.donazo.donazione.entities;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "item_doacao")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ItemDoacao.findAll", query = "SELECT i FROM ItemDoacao i")
-    , @NamedQuery(name = "ItemDoacao.findById", query = "SELECT i FROM ItemDoacao i WHERE i.id = :id")
-    , @NamedQuery(name = "ItemDoacao.findByDescricao", query = "SELECT i FROM ItemDoacao i WHERE i.descricao = :descricao")
-    , @NamedQuery(name = "ItemDoacao.findByValor", query = "SELECT i FROM ItemDoacao i WHERE i.valor = :valor")})
 public class ItemDoacao implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
 
-    @NotBlank(message = "Este campo não pode ser em branco")
-    @NotNull(message = "Este campo não pode ser nulo")
+    @NotBlank(message = "Descricao não pode ser em branco")
     @Column(name = "descricao",nullable = false)
     private String descricao;
 
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    //@NotNull(message = "Valor não pode ser Nulo")
     @Column(name = "valor")
     private BigDecimal valor;
 
-    @JoinColumn(name = "campanha", referencedColumnName = "id")
     @ManyToOne
+    @JoinColumn(name = "campanha", referencedColumnName = "id")
     private Campanha campanha;
 
-    @JoinColumn(name = "doacao", referencedColumnName = "id")
     @ManyToOne
+    @JoinColumn(name = "doacao", referencedColumnName = "id")
     private Doacao doacao;
 
-    @JoinColumn(name = "item_campanha", referencedColumnName = "id")
     @ManyToOne
+    @JoinColumn(name = "item_campanha", referencedColumnName = "id")
     private ItemCampanha itemCampanha;
 
     public ItemDoacao() {

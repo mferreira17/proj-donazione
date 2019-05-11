@@ -1,5 +1,7 @@
 package br.com.donazo.donazione.entities;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -13,56 +15,66 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
+@Component
 public class Meta {
-	
-	@Id
+
+    public Meta() {
+    }
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	@Column(name="valor_arrecadar")
-	private BigDecimal valorArredacar;
-	
-	@Column(name="valor_arrecadado")
-	private BigDecimal valorArrecadado;
-	
-	@Column(name="tem_expectativa_material")
-	private boolean possuiExpectativaMaterial;
-	
-	@OneToOne
-	@JoinColumn(name="id_campanha",referencedColumnName="id")
-	private Campanha campanha;
-	
-	@OneToMany
-	private List<Doacao> doacoes;
-	
-	public Integer getId() {
-		return id;
-	}
+    private Integer id;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @Column(name = "valor_arrecadar")
+    private BigDecimal valorArredacar;
 
-	public boolean isPossuiExpectativaMaterial() {
-		return possuiExpectativaMaterial;
-	}
+    @Column(name = "valor_arrecadado")
+    private BigDecimal valorArrecadado;
 
-	public void setPossuiExpectativaMaterial(boolean possuiExpectativaMaterial) {
-		this.possuiExpectativaMaterial = possuiExpectativaMaterial;
-	}
+    @Column(name = "tem_expectativa_material")
+    private boolean possuiExpectativaMaterial;
 
-	public BigDecimal getValorArrecadado() {
-		return valorArrecadado;
-	}
+    @OneToOne
+    @JoinColumn(name = "id_campanha", referencedColumnName = "id")
+    private Campanha campanha;
 
-	public void setValorArrecadado(BigDecimal valorArrecadado) {
-		this.valorArrecadado = valorArrecadado;
-	}
-	
-	public void addDoacoes(Doacao doacao) {
-		doacoes.add(doacao);
-	}
-	
-	
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public boolean isPossuiExpectativaMaterial() {
+        return possuiExpectativaMaterial;
+    }
+
+    public void setPossuiExpectativaMaterial(boolean possuiExpectativaMaterial) {
+        this.possuiExpectativaMaterial = possuiExpectativaMaterial;
+    }
+
+    public BigDecimal getValorArredacar() {
+        return valorArredacar;
+    }
+
+    public void setValorArredacar(BigDecimal valorArredacar) {
+        this.valorArredacar = valorArredacar;
+    }
+
+    public BigDecimal getValorArrecadado() {
+        return valorArrecadado;
+    }
+
+    public void setValorArrecadado(BigDecimal valorArrecadado) {
+        this.valorArrecadado = valorArrecadado;
+    }
+
+    public Campanha getCampanha() {
+        return campanha;
+    }
+
+    public void setCampanha(Campanha campanha) {
+        this.campanha = campanha;
+    }
 }

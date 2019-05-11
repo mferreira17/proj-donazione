@@ -1,100 +1,79 @@
 package br.com.donazo.donazione.entities;
 
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
-
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import java.util.Set;
 
 @Entity
-@Table(name = "campanha")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Campanha.findAll", query = "SELECT c FROM Campanha c")
-    , @NamedQuery(name = "Campanha.findById", query = "SELECT c FROM Campanha c WHERE c.id = :id")
-    , @NamedQuery(name = "Campanha.findByNome", query = "SELECT c FROM Campanha c WHERE c.nome = :nome")
-    , @NamedQuery(name = "Campanha.findByDescricao", query = "SELECT c FROM Campanha c WHERE c.descricao = :descricao")
-    , @NamedQuery(name = "Campanha.findByCadastro", query = "SELECT c FROM Campanha c WHERE c.cadastro = :cadastro")
-    , @NamedQuery(name = "Campanha.findByHabilitada", query = "SELECT c FROM Campanha c WHERE c.habilitada = :habilitada")
-    , @NamedQuery(name = "Campanha.findByDataFim", query = "SELECT c FROM Campanha c WHERE c.dataFim = :dataFim")
-    , @NamedQuery(name = "Campanha.findByMeta", query = "SELECT c FROM Campanha c WHERE c.meta = :meta")
-    , @NamedQuery(name = "Campanha.findByDoacaoMinima", query = "SELECT c FROM Campanha c WHERE c.doacaoMinima = :doacaoMinima")
-    , @NamedQuery(name = "Campanha.findByArrecadado", query = "SELECT c FROM Campanha c WHERE c.arrecadado = :arrecadado")})
+@Component
 public class Campanha implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "nome")
+
+    @NotBlank(message = "Nome não pode ser vazio")
+    @Column(name = "nome", nullable = false)
     private String nome;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
+
     @Column(name = "descricao")
     private String descricao;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "cadastro")
-    @Temporal(TemporalType.TIMESTAMP)
+
+    @NotNull(message="Data de início não pode ser vazio")
+    @Column(name = "data_inicio", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date cadastro;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "habilitada")
+
+    @Column(name = "habilitada", nullable = false)
     private boolean habilitada;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "dataFim")
-    @Temporal(TemporalType.TIMESTAMP)
+
+    @NotNull(message="Data de Término não pode ser vazio")
+    @Column(name = "data_fim")
+    @Temporal(TemporalType.DATE)
     private Date dataFim;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
+
+    /*@Basic(optional = false)
     @NotNull
     @Column(name = "meta")
-    private BigDecimal meta;
-    @Basic(optional = false)
+    private BigDecimal meta;*/
+
+    /*@Basic(optional = false)
     @NotNull
     @Column(name = "doacaoMinima")
-    private BigDecimal doacaoMinima;
-    @Basic(optional = false)
+    private BigDecimal doacaoMinima;*/
+
+    /*@Basic(optional = false)
     @NotNull
     @Column(name = "arrecadado")
-    private BigDecimal arrecadado;
+    private BigDecimal arrecadado;*/
+
     @OneToMany(mappedBy = "campanha")
-    private List<ItemDoacao> itemDoacaoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "campanha")
-    private List<ItemCampanha> itemCampanhaList;
-    
-    
+    private Set<ItemDoacao> itemDoacaoList = new HashSet<>();
+
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "campanha")
+    private List<ItemCampanha> itemCampanhaList;*/
+
     public Campanha() {
+
     }
    
-    public Campanha(Integer id) {
+/*    public Campanha(Integer id) {
         this.id = id;
-    }
+    }*/
 
+/*
     public Campanha(Integer id, String nome, String descricao, Date cadastro, boolean habilitada, Date dataFim, BigDecimal meta, BigDecimal doacaoMinima, BigDecimal arrecadado) {
         this.id = id;
         this.nome = nome;
@@ -102,10 +81,8 @@ public class Campanha implements Serializable {
         this.cadastro = cadastro;
         this.habilitada = habilitada;
         this.dataFim = dataFim;
-        this.meta = meta;
-        this.doacaoMinima = doacaoMinima;
-        this.arrecadado = arrecadado;
     }
+*/
 
     public Integer getId() {
         return id;
@@ -155,6 +132,7 @@ public class Campanha implements Serializable {
         this.dataFim = dataFim;
     }
 
+/*
     public BigDecimal getMeta() {
         return meta;
     }
@@ -178,24 +156,24 @@ public class Campanha implements Serializable {
     public void setArrecadado(BigDecimal arrecadado) {
         this.arrecadado = arrecadado;
     }
+*/
 
-    @XmlTransient
-    public List<ItemDoacao> getItemDoacaoList() {
+    public Set<ItemDoacao> getItemDoacaoList() {
         return itemDoacaoList;
     }
 
-    public void setItemDoacaoList(List<ItemDoacao> itemDoacaoList) {
+    public void setItemDoacaoList(Set<ItemDoacao> itemDoacaoList) {
         this.itemDoacaoList = itemDoacaoList;
     }
 
-    @XmlTransient
+    /*@XmlTransient
     public List<ItemCampanha> getItemCampanhaList() {
         return itemCampanhaList;
     }
 
     public void setItemCampanhaList(List<ItemCampanha> itemCampanhaList) {
         this.itemCampanhaList = itemCampanhaList;
-    }
+    }*/
 
     @Override
     public int hashCode() {
@@ -206,7 +184,6 @@ public class Campanha implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Campanha)) {
             return false;
         }
@@ -220,6 +197,14 @@ public class Campanha implements Serializable {
     @Override
     public String toString() {
         return "br.org.centrocac.entidade.Campanha[ id=" + id + " ]";
+    }
+
+    public void addItemDoacao(ItemDoacao itemDoacao){
+        this.itemDoacaoList.add(itemDoacao);
+    }
+
+    public void addItemDoacao(List<ItemDoacao> itensDoacao){
+        this.itemDoacaoList.addAll(itensDoacao);
     }
     
 }
