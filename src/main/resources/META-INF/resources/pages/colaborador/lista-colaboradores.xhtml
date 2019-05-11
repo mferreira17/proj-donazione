@@ -7,118 +7,326 @@
 	xmlns:adm="http://github.com/adminfaces"
 	template="/WEB-INF/templates/template.xhtml">
 
-	<ui:define name="head-end">
-		<style type="text/css">
-.ui-grid-row .ui-grid-col-2, .ui-grid-row .ui-grid-col-10 {
-	padding: 0.5em 0;
-	margin-left: 10px;
-}
-
-.ui-orderlist .ui-orderlist-list {
-	height: auto;
-}
-
-.ui-orderlist .ui-grid-row .ui-grid-col-2, .ui-orderlist .ui-grid-row .ui-grid-col-10
-	{
-	padding: 0;
-}
-</style>
-	</ui:define>
-
 	<ui:define name="title-page">
         Colaboradores
     </ui:define>
+
 	<ui:define name="title">
         Colaboradores
     </ui:define>
 
 	<ui:define name="description">
-            Está página referece a listagem de <p:link
+        Está página referece a listagem de <p:link
 			value="Colaboradores"
 			href="#" />.
     </ui:define>
 
+
+	<ui:define name="metadata">
+		<f:metadata>
+		</f:metadata>
+	</ui:define>
+
 	<ui:define name="body">
+
 		<adm:breadcrumb title="Colaboradores" />
 
-		<h:form>
+		<h:form
+			id="formConteudo"
+			prependId="false">
+
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<p:commandButton
-						action="novo-colaborador.xhtml?faces-redirect=true"
-						ajax="false"
-						icon="fa fa-plus"
-						value="Novo"
-						styleClass="btn-primary" />
-					<p:spacer width="5" />
-					<p:commandButton
-						value="Excluir Selecionado(s)"
-						icon="fa fa-trash"
-						styleClass="btn-danger"
-						process="@form"
-						update="@form" />
-					<p:spacer width="5" />
-					<p:commandButton
-						value="Olhar Selecionado(s)"
-						oncomplete="PF('defaultSelecionadas').show()"
-						update="@(.ui-dialog)"
-						styleClass="btn-info"
-						icon="fa fa-search" />
-					<p:separator />
+					<p:outputPanel id="listagem">
 
+						<div class="ui-g ui-fluid">
 
-					<p:dataTable
-						id="defaultTable"
-						widgetVar="defaultTable"
-						rows="10"
-						paginator="true"
-						paginatorPosition="bottom"
-						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
-						currentPageReportTemplate=""
-						rowsPerPageTemplate="5,10,15,20,30">
+							<!--BOTOES-->
+							<div>
+								<p:button
+									value="Novo"
+									outcome="novo-colaborador?faces-redirect=true"
+									style="margin-bottom:20%;"
+									icon="fa fa-check"
+									styleClass="btn-primary" />
+							</div>
 
-						<p:ajax
-							event="rowSelectCheckbox"
-							update="@(.ui-button)" />
-						<p:ajax
-							event="rowUnselectCheckbox"
-							update="@(.ui-button)" />
-						<p:ajax
-							event="rowSelect"
-							update="@(.ui-button)" />
-						<p:ajax
-							event="rowUnselect"
-							update="@(.ui-button)" />
+							<div class="ui-g-12">
 
+								<p:dataTable
+									reflow="true"
+									id="tableId"
+									var="registro"
+									widgetVar="tableId"
+									value="#{colaboradorBean.colaboradores }"
+									paginatorPosition="bottom"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+									rowsPerPageTemplate="5,10,15,20,30"
+									paginator="true"
+									rows="10">
 
-						<p:column
-							selectionMode="multiple"
-							width="5%"
-							styleClass="align-center" />
+									<p:column headerText="Nome">
+										<p:outputLabel value="#{registro.nome }" />
+									</p:column>
+									<p:column headerText="E-mail">
+										<p:outputLabel value="#{registro.email }" />
+									</p:column>
+									<p:column headerText="CPF/CNPJ">
+										<p:outputLabel value="#{registro.cpfOuCnpj }" />
+									</p:column>
+									<p:column headerText="Celular">
+										<p:outputLabel value="#{registro.celular }" />
+									</p:column>
+									<p:column headerText="Profissao">
+										<p:outputLabel value="#{registro.profissao }" />
+									</p:column>
+									<p:column headerText="Como Colaborar">
+										<p:outputLabel value="#{registro.comoColaborar }" />
+									</p:column>
 
+									<p:column headerText="Endereço">
+										<p:outputLabel value="#{registro.logradouro }" />
+									</p:column>
+									<p:column headerText="Nº">
+										<p:outputLabel value="#{registro.numero }" />
+									</p:column>
+									<p:column headerText="Bairro">
+										<p:outputLabel value="#{registro.bairro }" />
+									</p:column>
+									<p:column headerText="CEP">
+										<p:outputLabel value="#{registro.cep }" />
+									</p:column>
 
-					</p:dataTable>
+									<p:column
+										headerText="Operações"
+										exportable="false">
+										<p:commandButton
+											icon="fa fa-pencil-square"
+											title="Editar"
+											styleClass="btn-primary"
+											process="@this"
+											update="@(.ui-dialog)"
+											oncomplete="PF('dialog').show()">
+											<f:setPropertyActionListener
+												target="#{colaboradorBean.colaborador }"
+												value="#{registro}" />
+										</p:commandButton>
+
+										<p:commandButton
+											icon="fa fa-trash"
+											process="@this"
+											update="@form"
+											title="Excluir"
+											styleClass="btn-fatal"
+											action="#{colaboradorBean.gravarExcluir() }">
+
+											<f:param
+												value="#{registro.id}"
+												name="colaborador" />
+											<p:confirm
+												header="Confirmação"
+												message="Você tem certeza que deseja excluir o colaborador #{registro.nome} ?"
+												icon="fa fa-exclamation-triangle" />
+										</p:commandButton>
+									</p:column>
+
+								</p:dataTable>
+
+							</div>
+						</div>
+					</p:outputPanel>
 				</div>
 			</div>
+
+			<!--MODAL -->
+			<h:panelGroup id="dialogo">
+				<p:dialog
+					header="Editar #{acaoBean.acao.nome }"
+					closable="true"
+					closeOnEscape="true"
+					draggable="false"
+					resizable="false"
+					responsive="true"
+					widgetVar="dialog">
+
+					<p:ajax
+						event="close"
+						update=":formConteudo:listagem" />
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-12">
+
+							<p:panel
+								header="Informações gerais"
+								styleClass="box-solid">
+
+								<p:panelGrid
+									columns="4"
+									layout="grid"
+									columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5">
+
+									<p:outputLabel
+										for="nome"
+										value="Nome" />
+									<p:inputText
+										id="nome"
+										value="#{colaboradorBean.colaborador.nome }" />
+
+									<p:outputLabel
+										for="email"
+										value="Email" />
+									<p:inputText
+										id="email"
+										value="#{colaboradorBean.colaborador.email }" />
+
+									<p:outputLabel
+										for="cpfOuCnpj"
+										value="CPF ou CNPJ" />
+									<p:inputText
+										id="cpfOuCnpj"
+										value="#{colaboradorBean.colaborador.cpfOuCnpj }" />
+
+									<p:outputLabel
+										for="celular"
+										value="Celular" />
+									<p:inputMask
+										id="celular"
+										mask="(99) 99999-9999"
+										value="#{colaboradorBean.colaborador.celular }" />
+								</p:panelGrid>
+							</p:panel>
+
+
+							<p:panel
+								header="Endereço"
+								styleClass="box-solid">
+
+								<p:panelGrid
+									columns="4"
+									layout="grid"
+									columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5">
+
+									<p:outputLabel
+										for="logradouro"
+										value="Logradouro" />
+									<p:inputText
+										id="logradouro"
+										value="#{colaboradorBean.colaborador.logradouro }" />
+
+									<p:outputLabel
+										for="numero"
+										value="Número" />
+									<p:inputText
+										id="numero"
+										value="#{colaboradorBean.colaborador.numero }" />
+
+									<p:outputLabel
+										for="complemento"
+										value="Complemento" />
+									<p:inputText
+										id="complemento"
+										value="#{colaboradorBean.colaborador.complemento }" />
+
+									<p:outputLabel
+										for="bairro"
+										value="Bairro" />
+									<p:inputText
+										id="bairro"
+										value="#{colaboradorBean.colaborador.bairro }" />
+
+									<p:outputLabel
+										for="cep"
+										value="Cep" />
+									<p:inputText
+										id="cep"
+										value="#{colaboradorBean.colaborador.cep }" />
+								</p:panelGrid>
+							</p:panel>
+
+							<p:panel
+								header="Perfil"
+								styleClass="box-solid">
+
+								<p:panelGrid
+									columns="4"
+									layout="grid"
+									columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5">
+
+									<p:outputLabel
+										for="perfil"
+										value="Perfil" />
+									<p:inputText
+										id="perfil"
+										value="#{colaboradorBean.colaborador.perfil }" />
+
+									<p:outputLabel
+										for="senha"
+										value="Senha" />
+									<p:password
+										id="senha"
+										value="#{colaboradorBean.colaborador.senha }" />
+
+									<p:outputLabel
+										for="profissao"
+										value="Profissão" />
+									<p:inputText
+										id="profissao"
+										value="#{colaboradorBean.colaborador.profissao }" />
+
+									<p:outputLabel
+										for="comoColaborar"
+										value="Como Colaborar" />
+									<p:inputText
+										id="comoColaborar"
+										value="#{colaboradorBean.colaborador.comoColaborar }" />
+
+									<p:outputLabel
+										for="confirmacao"
+										value="Confirmação" />
+									<p:inputText
+										id="confirmacao"
+										value="#{colaboradorBean.colaborador.confirmacao }" />
+								</p:panelGrid>
+
+							</p:panel>
+						</div>
+					</div>
+
+					<!--BOTOES-->
+					<div class="hidden-sm hidden-xs">
+						<p:commandButton
+							value="Salvar"
+							action="#{acaoBean.gravarAlterar() }"
+							oncomplete="PF('dialog').hide()"
+							icon="fa fa-check"
+							styleClass="btn-primary" />
+
+						<p:commandButton
+							value="Voltar"
+							immediate="true"
+							onclick="PF('dialog').hide()"
+							process="@this"
+							icon="fa fa-angle-double-left" />
+					</div>
+
+					<p:splitButton
+						value="Salvar"
+						action="#{acaoBean.gravarAlterar() }"
+						oncomplete="PF('dialog').hide()"
+						icon="fa fa-check"
+						styleClass="hidden-md hidden-lg btn-primary">
+						<p:separator />
+						<p:menuitem
+							value="Voltar"
+							onclick="PF('dialog').hide()"
+							process="@this"
+							icon="fa fa-angle-double-left" />
+					</p:splitButton>
+
+				</p:dialog>
+			</h:panelGroup>
 		</h:form>
-
-		<p:dialog
-			header="Default Selecionadas"
-			widgetVar="defaultSelecionadas"
-			height="250"
-			width="400"
-			responsive="true"
-			styleClass="box-success">
-			<p:dataList
-				id="listaDefaultSelecionadas"
-				value=""
-				var="default"
-				type="definition">
-
-			</p:dataList>
-		</p:dialog>
-
 
 	</ui:define>
 
-</ui:composition>
+</ui:composition> 	
