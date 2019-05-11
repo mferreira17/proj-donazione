@@ -1,59 +1,127 @@
 package br.com.donazo.donazione.beans;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
-
+import org.primefaces.event.CloseEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.donazo.donazione.entities.Colaborador;
 import br.com.donazo.donazione.repositorios.ColaboradorRepository;
 import br.com.donazo.donazione.utils.MessagesUtil;
+import br.com.donazo.donazione.utils.UtilBean;
 
 @Named
 @ViewScoped
-@SuppressWarnings("serial")
-public class ColaboradorBean implements Serializable{
+public class ColaboradorBean implements Serializable {
 
-	private Colaborador colaborador;
-	
-	@Inject
-	private ColaboradorRepository colaboradorRespository;
-	
-	@PostConstruct
-	public void init() {
-		colaborador = new Colaborador();
-		
-	}
-	
-	public void salvar() {
-		
-		if (colaborador != null) {
-			colaboradorRespository.save(colaborador);
-			MessagesUtil.criarMensagemDeInformacao("Colaborador Cadastrado Com Sucesso");
-			colaborador = new Colaborador(); //recria a entidade para nova pesistencia
-		} else {
-			System.out.println("deu merda");
-		}
-	}
+    private static final long serialVersionUID = -4216221212973849019L;
 
-	public void excluir() {
-		colaboradorRespository.delete(colaborador);
-	}
-	
-	public void listar() {
-		colaboradorRespository.findAll();
-	}
-	
-	public Colaborador getColaborador() {
-		return colaborador;
-	}
+    private Colaborador colaborador;
 
-	public void setColaborador(Colaborador colaborador) {
-		this.colaborador = colaborador;
-	}
-	
+    private Iterable<Colaborador> colaboradores;
+
+    @Autowired
+    private ColaboradorRepository colaboradorRepository;
+
+    @PostConstruct
+    public void init() {
+
+        this.prepaprar();
+        this.colaboradores = this.colaboradorRepository.findAll();
+    }
+
+    public void gravarInserir() {
+
+        try {
+            this.colaboradorRepository.save(this.colaborador);
+            MessagesUtil.criarMensagemDeInformacao("Colaborador" + this.colaborador.getNome() + "  salvo.");
+            this.limpar();
+        } catch (final Exception e) {
+            MessagesUtil.criarMensagemDeErro(e.getMessage());
+        }
+    }
+
+    public void gravarAlterar() {
+
+        try {
+            this.colaboradorRepository.save(this.colaborador);
+            MessagesUtil.criarMensagemDeInformacao("Colaborador " + this.colaborador.getNome() + "  alterado.");
+            this.limpar();
+        } catch (final Exception e) {
+            MessagesUtil.criarMensagemDeErro(e.getMessage());
+        }
+    }
+
+    public void gravarExcluir() {
+
+        final int colaborador = Integer.parseInt(UtilBean.obterValor("colaborador"));
+        try {
+            final Optional<Colaborador> registro = this.colaboradorRepository.findById(colaborador);
+            MessagesUtil.criarMensagemDeInformacao("Colaborador " + registro.get().getNome() + "  excluído.");
+            this.colaboradorRepository.delete(registro.get());
+            this.init();
+        } catch (final Exception e) {
+            MessagesUtil.criarMensagemDeErro(e.getMessage());
+        }
+
+    }
+
+    public void prepaprar() {
+
+        if (this.colaborador == null) {
+            this.limpar();
+        }
+
+    }
+
+    public void limpar() {
+
+        this.colaborador = new Colaborador();
+
+    }
+
+    public void closeEvent(final CloseEvent closeEvent) {
+
+        this.init();
+    }
+
+    /**
+     * @return the colaborador
+     */
+    public Colaborador getColaborador() {
+
+        return this.colaborador;
+    }
+
+    /**
+     * @param colaborador
+     *            the colaborador to set
+     */
+    public void setColaborador(final Colaborador colaborador) {
+
+        this.colaborador = colaborador;
+    }
+
+    /**
+     * @return the colaboradores
+     */
+    public Iterable<Colaborador> getColaboradores() {
+
+        return this.colaboradores;
+    }
+
+    /**
+     * @param colaboradores
+     *            the colaboradores to set
+     */
+    public void setColaboradores(final Iterable<Colaborador> colaboradores) {
+
+        this.colaboradores = colaboradores;
+    }
+
 }
