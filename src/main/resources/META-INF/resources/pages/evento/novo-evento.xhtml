@@ -8,16 +8,16 @@
 	template="/WEB-INF/templates/template.xhtml">
 
 	<ui:define name="title-page">
-        Nova Ação
+        Novo Evento
     </ui:define>
 
 	<ui:define name="title">
-        Nova Ação
+        Novo Evento
     </ui:define>
 
 	<ui:define name="description">
-        Está página referece ao cadastro de uma nova <p:link
-			value="Ação"
+        Está página referece ao cadastro de uma novo <p:link
+			value="Evento"
 			href="#" />.
     </ui:define>
 
@@ -28,7 +28,7 @@
 
 	<ui:define name="body">
 
-		<adm:breadcrumb title="Nova Ação" />
+		<adm:breadcrumb title="Novo Evento" />
 
 		<h:form
 			id="formConteudo"
@@ -52,7 +52,7 @@
 									id="nome"
 									placeholder="Insira o nome da ação"
 									maxlength="50"
-									value="#{acaoBean.acao.nome}" />
+									value="#{eventoBean.evento.nome}" />
 
 								<p:outputLabel
 									for="descricao"
@@ -61,7 +61,7 @@
 									id="descricao"
 									placeholder="Insira a descrição"
 									maxlength="200"
-									value="#{acaoBean.acao.descricao}" />
+									value="#{eventoBean.evento.descricao}" />
 
 								<p:outputLabel
 									for="dataInicio"
@@ -72,7 +72,7 @@
 									pattern="dd/MM/yyyy HH:mm"
 									mindate="#{dateUtil.dataAtual }"
 									mask="99/99/9999 99:99"
-									value="#{acaoBean.acao.inicio}" />
+									value="#{eventoBean.evento.inicio}" />
 
 								<p:outputLabel
 									for="dataFim"
@@ -83,7 +83,7 @@
 									mask="99/99/9999 99:99"
 									mindate="#{dateUtil.dataAtual }"
 									pattern="dd/MM/yyyy HH:mm"
-									value="#{acaoBean.acao.fim}" />
+									value="#{eventoBean.evento.fim}" />
 
 								<p:outputLabel
 									for="cargaHoraria"
@@ -93,7 +93,7 @@
 									placeholder="Insira a carga horária em minutos"
 									minValue="1"
 									type="number"
-									value="#{acaoBean.acao.cargaHoraria}" />
+									value="#{eventoBean.evento.cargaHoraria}" />
 
 							</p:panelGrid>
 						</div>
@@ -104,21 +104,21 @@
 						<p:commandButton
 							value="Salvar"
 							update="@form"
-							action="#{acaoBean.gravarInserir() }"
+							action="#{eventoBean.gravarInserir() }"
 							icon="fa fa-check"
 							styleClass="btn-primary" />
 
 						<p:commandButton
 							value="Voltar"
 							immediate="true"
-							action="lista-acoes?faces-redirect=true"
+							action="lista-eventos?faces-redirect=true"
 							process="@this"
 							icon="fa fa-reply " />
 					</div>
 
 					<p:splitButton
 						value="Salvar"
-						action="#{acaoBean.gravarInserir() }"
+						action="#{eventoBean.gravarInserir() }"
 						update="@form"
 						icon="fa fa-check"
 						styleClass="hidden-md hidden-lg btn-primary">
@@ -126,7 +126,7 @@
 						<p:separator />
 						<p:menuitem
 							value="Voltar"
-							action="lista-acoes?faces-redirect=true"
+							action="lista-eventos?faces-redirect=true"
 							process="@this"
 							icon="fa fa-reply " />
 					</p:splitButton>

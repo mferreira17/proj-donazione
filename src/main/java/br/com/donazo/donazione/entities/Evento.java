@@ -24,18 +24,18 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "acao")
+@Table(name = "evento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Acao.findAll", query = "SELECT a FROM Acao a")
-    , @NamedQuery(name = "Acao.findById", query = "SELECT a FROM Acao a WHERE a.id = :id")
-    , @NamedQuery(name = "Acao.findByNome", query = "SELECT a FROM Acao a WHERE a.nome = :nome")
-    , @NamedQuery(name = "Acao.findByDescricao", query = "SELECT a FROM Acao a WHERE a.descricao = :descricao")
-    , @NamedQuery(name = "Acao.findByInicio", query = "SELECT a FROM Acao a WHERE a.inicio = :inicio")
-    , @NamedQuery(name = "Acao.findByFim", query = "SELECT a FROM Acao a WHERE a.fim = :fim")
-    , @NamedQuery(name = "Acao.findByCadastro", query = "SELECT a FROM Acao a WHERE a.cadastro = :cadastro")
-    , @NamedQuery(name = "Acao.findByCargaHoraria", query = "SELECT a FROM Acao a WHERE a.cargaHoraria = :cargaHoraria")})
-public class Acao implements Serializable {
+    @NamedQuery(name = "Evento.findAll", query = "SELECT a FROM Evento a")
+    , @NamedQuery(name = "Evento.findById", query = "SELECT a FROM Evento a WHERE a.id = :id")
+    , @NamedQuery(name = "Evento.findByNome", query = "SELECT a FROM Evento a WHERE a.nome = :nome")
+    , @NamedQuery(name = "Evento.findByDescricao", query = "SELECT a FROM Evento a WHERE a.descricao = :descricao")
+    , @NamedQuery(name = "Evento.findByInicio", query = "SELECT a FROM Evento a WHERE a.inicio = :inicio")
+    , @NamedQuery(name = "Evento.findByFim", query = "SELECT a FROM Evento a WHERE a.fim = :fim")
+    , @NamedQuery(name = "Evento.findByCadastro", query = "SELECT a FROM Evento a WHERE a.cadastro = :cadastro")
+    , @NamedQuery(name = "Evento.findByCargaHoraria", query = "SELECT a FROM Evento a WHERE a.cargaHoraria = :cargaHoraria")})
+public class Evento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -73,14 +73,14 @@ public class Acao implements Serializable {
     @Column(name = "cargaHoraria")
     private int cargaHoraria;
 
-    public Acao() {
+    public Evento() {
     }
 
-    public Acao(Integer id) {
+    public Evento(Integer id) {
         this.id = id;
     }
 
-    public Acao(Integer id, String nome, String descricao, Date inicio, Date fim, Date cadastro, int cargaHoraria) {
+    public Evento(Integer id, String nome, String descricao, Date inicio, Date fim, Date cadastro, int cargaHoraria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -156,10 +156,10 @@ public class Acao implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Acao)) {
+        if (!(object instanceof Evento)) {
             return false;
         }
-        Acao other = (Acao) object;
+        Evento other = (Evento) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -168,7 +168,7 @@ public class Acao implements Serializable {
 
     @Override
     public String toString() {
-        return "br.org.centrocac.entidade.Acao[ id=" + id + " ]";
+        return "br.org.centrocac.entidade.Evento[ id=" + id + " ]";
     }
     
 }
