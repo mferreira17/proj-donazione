@@ -86,15 +86,34 @@
 
 										<p:outputLabel value="Itens de Doação:" />
 										<p:selectManyMenu value="#{campanhaBean.doacoes}"
-											filter="true" filterMatchMode="contains" showCheckbox="true">
+											id="doacoesDualList" filter="true" filterMatchMode="contains"
+											showCheckbox="true">
 											<f:selectItems value="#{itemDoacaoBean.itensDoacao}"
-												var="item" itemLabel="#{item.descricao}" itemValue="#{item}" />
+												var="item" itemLabel=" #{item.descricao}"
+												itemValue="#{item}" />
 										</p:selectManyMenu>
 
 										<p:button value="Adicionar Itens a Meta" icon="fa fa-plus"
 											iconPos="right" styleClass="btn-primary" />
 										<p:button value="Novo Item de Doação" icon="fa fa-plus"
-											iconPos="right" type="button" />
+											iconPos="right" type="button"
+											onclick="PF('itemDoacaoDialog').show(); return false;" />
+
+										<p:dialog widgetVar="itemDoacaoDialog" modal="true"
+											draggable="false" showHeader="true" hideEffect="fade"
+											showEffect="hide" header="Novo Item de Doação">
+											<h:form>
+												<p:panelGrid columns="2">
+													<p:outputLabel value="Descrição.:" />
+													<p:inputText value="#{itemDoacaoBean.itemDoacao.descricao}" />
+												</p:panelGrid>
+												<p:commandButton value="Salvar"
+													action="#{itemDoacaoBean.salvar}" process="@form"
+													update="@form"
+													onclick="PF('itemDoacaoDialog').hide();" />
+											</h:form>
+											<p:ajax event="close" update="doacoesDualList" />
+										</p:dialog>
 
 									</p:panelGrid>
 

@@ -16,23 +16,24 @@ import br.com.donazo.donazione.utils.MessagesUtil;
 @Named
 @RequestScoped
 public class ItemDoacaoBean {
-	
+
 	@Autowired
 	private ItemDoacaoRepository repository;
-	
+
 	private List<ItemDoacao> itensDoacao;
 
 	private ItemDoacao itemDoacao;
-	
+
 	@PostConstruct
 	public void init() {
 		itemDoacao = new ItemDoacao();
 		itensDoacao = (List<ItemDoacao>) repository.findAll();
 	}
-	
+
 	public void salvar() {
 		repository.save(itemDoacao);
 		MessagesUtil.criarMensagemDeInformacao("Item de Doação Cadastrado com Sucesso");
+		itemDoacao = new ItemDoacao();
 	}
 
 	public List<ItemDoacao> getItensDoacao() {

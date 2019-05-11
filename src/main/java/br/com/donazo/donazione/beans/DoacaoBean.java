@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.donazo.donazione.entities.Doacao;
 import br.com.donazo.donazione.repositorios.DoacaoRepository;
+import br.com.donazo.donazione.utils.MessagesUtil;
 
 @Named
 @RequestScoped
