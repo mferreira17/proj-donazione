@@ -18,8 +18,7 @@ public class PagSeguroConfigBean {
 
 	@Bean
 	public PagSeguro getPagSeguroBean() {
-		PagSeguro pagSeguro = PagSeguro.instance(Credential.applicationCredential(appId, appKey), PagSeguroEnv.SANDBOX);
-		return pagSeguro;
+		return PagSeguro.instance(Credential.applicationCredential(appId, appKey), PagSeguroEnv.SANDBOX);
 	}
 
 	public String getEmail() {
