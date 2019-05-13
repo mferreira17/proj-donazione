@@ -17,7 +17,7 @@ public class PagSeguroConfigBean {
 	private String appId;
 
 	@Bean
-	public PagSeguro getPagSeguroBena() {
+	public PagSeguro getPagSeguroBean() {
 		PagSeguro pagSeguro = PagSeguro.instance(Credential.applicationCredential(appId, appKey), PagSeguroEnv.SANDBOX);
 		return pagSeguro;
 	}
