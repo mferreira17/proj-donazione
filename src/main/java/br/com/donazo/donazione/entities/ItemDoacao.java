@@ -2,11 +2,15 @@ package br.com.donazo.donazione.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "item_doacao")
+@Component
 public class ItemDoacao implements Serializable {
 
     private static final long serialVersionUID = 1L;

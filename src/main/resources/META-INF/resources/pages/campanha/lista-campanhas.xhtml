@@ -39,6 +39,10 @@
 
 	<ui:define name="body">
 		<adm:breadcrumb title="Campanhas" />
+		
+		<f:metadata>	
+			<f:viewAction action="#{campanhaBean.init}"/>
+		</f:metadata>
 
 		<h:form>
 			<div class="box box-primary">
@@ -59,9 +63,8 @@
 					<p:dataTable id="defaultTable" widgetVar="defaultTable" rows="10"
 						paginator="true" paginatorPosition="bottom"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
-						currentPageReportTemplate=""
 						emptyMessage="Nenhuma Campanha Cadastrada"
-						value="#{campanhaBean.campanhas}" var="campanha"
+						value="#{campanhaBean.campanhas}" var="ca"
 						rowsPerPageTemplate="5,10,15,20,30">
 
 						<p:ajax event="rowSelectCheckbox" update="@(.ui-button)" />
@@ -70,23 +73,23 @@
 						<p:ajax event="rowUnselect" update="@(.ui-button)" />
 
 						<p:column headerText="Nome">
-							<p:outputLabel value="#{campanha.nome}" />
+							<p:outputLabel value="#{ca.nome}" />
 						</p:column>
 
 						<p:column headerText="Descrição">
-							<p:outputLabel value="#{campanha.descricao}" />
+							<p:outputLabel value="#{ca.descricao}" />
 						</p:column>
 
 						<p:column headerText="Data Início">
-							<p:outputLabel value="#{campanha.cadastro}" />
+							<p:outputLabel value="#{ca.cadastro}" />
 						</p:column>
 
 						<p:column headerText="Data Término">
-							<p:outputLabel value="#{campanha.dataFim}" />
+							<p:outputLabel value="#{ca.dataFim}" />
 						</p:column>
 
 						<p:column headerText="Habilitada?">
-							<p:outputLabel value="#{campanha.habilitada}" />
+							<p:outputLabel value="#{ca.habilitada == true ? 'Sim' : 'Não'}"/>
 						</p:column>
 
 					</p:dataTable>

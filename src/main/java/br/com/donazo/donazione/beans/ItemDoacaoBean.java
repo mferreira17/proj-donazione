@@ -14,16 +14,23 @@ import java.util.List;
 @RequestScoped
 public class ItemDoacaoBean {
 
-	@Autowired
 	private ItemDoacaoRepository repository;
 
 	private List<ItemDoacao> itensDoacao;
 
 	private ItemDoacao itemDoacao;
+	
+	public ItemDoacaoBean() {
+		
+	}
+	
+	@Autowired
+	private ItemDoacaoBean(ItemDoacaoRepository repository, ItemDoacao itemDoacao) {
+		this.repository = repository; this.itemDoacao = itemDoacao;
+	}
 
 	@PostConstruct
 	private void init() {
-		itemDoacao = new ItemDoacao();
 		itensDoacao = (List<ItemDoacao>) repository.findAll();
 	}
 

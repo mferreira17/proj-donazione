@@ -5,6 +5,8 @@ import br.com.donazo.donazione.entities.ItemDoacao;
 import br.com.donazo.donazione.entities.Meta;
 import br.com.donazo.donazione.repositorios.CampanhaRepository;
 import br.com.donazo.donazione.repositorios.MetaRepository;
+import br.com.donazo.donazione.utils.MessagesUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -40,7 +42,6 @@ public class CampanhaBean {
         this.metaRepository = metaRepository;
     }
 
-    @PostConstruct
     public void init() {
         campanhas = (List<Campanha>) campanhaRepository.findAll();
     }
@@ -52,6 +53,8 @@ public class CampanhaBean {
 
         campanhaRepository.save(campanha);
         metaRepository.save(meta);
+        
+		MessagesUtil.criarMensagemDeInformacao("Campanha salva com sucesso");
 
         resetEntidades();
     }
