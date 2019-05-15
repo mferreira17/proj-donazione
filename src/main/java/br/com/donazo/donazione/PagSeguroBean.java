@@ -19,10 +19,13 @@ public class PagSeguroBean {
 
 	@Value(value = "${pagseguro.appId}")
 	private String appId;
+	
+	@Value(value = "${pagseguro.token}")
+	private String token;
 
 	@Bean
 	public PagSeguro createPagSeguroInstance() {
-		Credential credentials = Credential.applicationCredential(appId, appKey);
+		Credential credentials = Credential.sellerCredential(email, token);
 		PagSeguro pagseguroInstance = PagSeguro.instance(credentials, PagSeguroEnv.PRODUCTION);
 		return pagseguroInstance;
 	}

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,9 +34,9 @@ public class PagSeguroTest {
 		calendar.set(2019, Calendar.MAY, 1);
 		Date dataFinal =  calendar.getTime();
 		
-		DataList<TransactionSummary> data = pagSeguroService.getPagamentosPorData(dataInicial, dataFinal);
+		List<TransactionSummary> data = pagSeguroService.getPagamentosPorData(dataInicial, dataFinal);
 		
-		assertTrue(data.getData().size()>0);
+		assertTrue(data.size()>0);
 	}
 
 }
