@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <ul class="nav navbar-nav">
-        <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <pe:gravatar id="userImage"
-                             value="mm"/>
-                <span class="hidden-xs">Alvaro Luiz Reis Barros</span>
-            </a>
-        </li>
-    </ul>
+	<ul class="nav navbar-nav">
+		<li class="dropdown user user-menu"><a href="#"
+			class="dropdown-toggle" data-toggle="dropdown"> <pe:gravatar
+					id="userImage" value="mm" /> <span class="hidden-xs">Alvaro
+					Luiz Reis Barros</span>
+		</a>
+			<ul class="dropdown-menu">
+				<li class="user-header">
+					<div class="hidden-xs">
+						<pe:gravatar style="border-radius: 50%" value="mm" />
+					</div>
+					<p>
+						Alvaro Luiz Reis Barros <small> Administrador </small>
+					</p>
+				</li>
+				<li class="user-footer"><h:form prependId="false">
+						<div class="pull-left">
+							<p:commandLink styleClass="btn btn-danger"
+								value="Change password" />
+						</div>
+						<div class="pull-right">
+							<p:link title="Logout" href="/logout">
+								<i class="fa fa-sign-out fa-2x"></i>
+							</p:link>
+						</div>
+					</h:form></li>
+			</ul></li>
+	</ul>
 
 
 </ui:composition>
