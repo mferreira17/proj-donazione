@@ -10,7 +10,8 @@ clicar na classe <b>DonazioneApplication</b>, dentro do pacote <b>br.com.donazo.
 botao direito, run as Java Application. O projeto roda no endereço <a>http://localhost:8280/donazione/index.xhtml</a> 
 
 # link do projeto no heroku:
-[Heroku](http://donazione.herokuapp.com/donazione/)
+[Heroku](http://donazione.herokuapp.com/donazione/) - Java EE Application 
+[WebHost][https://centroalternativocultural.000webhostapp.com/] - Landing Page
 
 # banco de dados.: 
 <ul>
