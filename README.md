@@ -9,6 +9,9 @@ necessárias.
 clicar na classe <b>DonazioneApplication</b>, dentro do pacote <b>br.com.donazo.donazione</b>, e executar a mesma como uma aplicação Java. No eclipse,
 botao direito, run as Java Application. O projeto roda no endereço <a>http://localhost:8280/donazione/index.xhtml</a> 
 
+# link do projeto no heroku:
+(Heroku)[http://donazione.herokuapp.com/donazione/index.xhtml]
+
 # banco de dados.: 
 <ul>
 <li>URL do BANCO .: jdbc:mysql://localhost:3306/donazo?serverTimezone=America/Belem (Já configurado, mas pode ser usado outro banco localmente)</li>
