@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -34,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 		@NamedQuery(name = "Colaborador.findByBairro", query = "SELECT c FROM Colaborador c WHERE c.bairro = :bairro"),
 		@NamedQuery(name = "Colaborador.findByCep", query = "SELECT c FROM Colaborador c WHERE c.cep = :cep"),
 		@NamedQuery(name = "Colaborador.findBySenha", query = "SELECT c FROM Colaborador c WHERE c.senha = :senha"),
-		@NamedQuery(name = "Colaborador.findByPerfil", query = "SELECT c FROM Colaborador c WHERE c.perfil = :perfil"),
+//		@NamedQuery(name = "Colaborador.findByPerfil", query = "SELECT c FROM Colaborador c WHERE c.perfil = :perfil"),
 		@NamedQuery(name = "Colaborador.findByProfissao", query = "SELECT c FROM Colaborador c WHERE c.profissao = :profissao") })
 public class Colaborador implements Serializable {
 
@@ -74,10 +75,10 @@ public class Colaborador implements Serializable {
 	@Size(min = 1, max = 100)
 	@Column(name = "senha")
 	private String senha;
-	@Basic(optional = false)
-	@NotNull
-	@Column(name = "perfil")
-	private Character perfil;
+//	@Basic(optional = false)
+//	@NotNull
+//	@Column(name = "perfil")
+//	private Character perfil;
 	@Basic(optional = false)
 	@NotNull
 	@Column(name = "profissao")
@@ -88,6 +89,12 @@ public class Colaborador implements Serializable {
 	private String habilidade;
 	@OneToMany(mappedBy = "colaborador")
 	private List<Doacao> doacaoList;
+	@ManyToMany
+	@JoinColumn(name = "permissoes", referencedColumnName = "id")
+	private List<Permissao> permissoes;
+	@ManyToMany
+	@JoinColumn(name = "permissoes", referencedColumnName = "id")
+	private List<Grupo> grupos;
 	@ManyToOne
 	@JoinColumn(name = "evento", referencedColumnName = "id")
 	private Evento evento;
@@ -99,14 +106,13 @@ public class Colaborador implements Serializable {
 		this.id = id;
 	}
 
-	public Colaborador(Integer id, String nome, String email, String celular, String senha, Character perfil,
+	public Colaborador(Integer id, String nome, String email, String celular, String senha,
 			String profissao) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.celular = celular;
 		this.senha = senha;
-		this.perfil = perfil;
 		this.profissao = profissao;
 	}
 
@@ -190,13 +196,13 @@ public class Colaborador implements Serializable {
 		this.senha = senha;
 	}
 
-	public Character getPerfil() {
-		return perfil;
-	}
-
-	public void setPerfil(Character perfil) {
-		this.perfil = perfil;
-	}
+//	public Character getPerfil() {
+//		return perfil;
+//	}
+//
+//	public void setPerfil(Character perfil) {
+//		this.perfil = perfil;
+//	}
 
 	public String getProfissao() {
 		return profissao;
@@ -221,6 +227,22 @@ public class Colaborador implements Serializable {
 
 	public void setDoacaoList(List<Doacao> doacaoList) {
 		this.doacaoList = doacaoList;
+	}
+
+	public List<Permissao> getPermissoes() {
+		return permissoes;
+	}
+
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
+	}
+
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 
 	public Evento getEvento() {

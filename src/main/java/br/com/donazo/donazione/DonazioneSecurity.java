@@ -1,5 +1,6 @@
 package br.com.donazo.donazione;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,35 +9,30 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import br.com.donazo.donazione.seguranca.DonazioneUserDetailsService;
+
 @Configuration
-@EnableWebSecurity(debug = false)
+@EnableWebSecurity
 public class DonazioneSecurity extends WebSecurityConfigurerAdapter {
+
+	@Autowired
+	private DonazioneUserDetailsService ssUserDetailsService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
-		/*
-		 * Clausula permitindo que qualquer usuário atinga a raiz da aplicação (/),
-		 * porém apenas usuarios autenticados(logados) e com a ROLE GESTOR possam
-		 * acessar o que estiver abaixo de /contratos, /empresas e /gestores. Ao final
-		 * pede para adicionar o formulario de login
-		 */
-		http.authorizeRequests().antMatchers("/","/static/**").permitAll()
-				.antMatchers("/pages/**").hasRole("ADMIN")
-				.anyRequest().authenticated().and().formLogin().and().logout()
+		http.authorizeRequests().antMatchers("/static/**", "/webjars/**").permitAll().antMatchers("/pages/**")
+				.hasRole("ADMINISTRADOR").antMatchers("/pages/**").hasRole("COLABORADOR").anyRequest().authenticated()
+				.and().formLogin().permitAll().and().rememberMe().and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
 	}
-
+	
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		/*
-		 * Definido o encoder de senha, estou definindo um usuario gestor , com senha
-		 * gestor e role GESTOR
-		 */
+	protected void configure(AuthenticationManagerBuilder builder) throws Exception {
+		builder.userDetailsService(ssUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		auth.inMemoryAuthentication().passwordEncoder(encoder).withUser("admin").password(encoder.encode("admin"))
-				.roles("ADMIN");
 	}
 
+//	public static void main(String[] args) {
+//		System.out.println(new BCryptPasswordEncoder().encode("12345678"));
+//	}
 }
