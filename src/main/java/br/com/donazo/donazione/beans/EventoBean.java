@@ -2,7 +2,9 @@ package br.com.donazo.donazione.beans;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -11,7 +13,9 @@ import javax.inject.Named;
 import org.primefaces.event.CloseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import br.com.donazo.donazione.entities.Colaborador;
 import br.com.donazo.donazione.entities.Evento;
+import br.com.donazo.donazione.repositorios.ColaboradorRepository;
 import br.com.donazo.donazione.repositorios.EventoRepository;
 import br.com.donazo.donazione.utils.MessagesUtil;
 import br.com.donazo.donazione.utils.UtilBean;
@@ -26,15 +30,20 @@ public class EventoBean implements Serializable {
 
 	private Iterable<Evento> eventos;
 
+	private Iterable<Colaborador> colaboradores;
+
 	private boolean operacao = false;
 
 	@Autowired
 	private EventoRepository eventoRepository;
+	@Autowired
+	private ColaboradorRepository colaboradorRepository;
 
 	@PostConstruct
 	public void init() {
 
 		this.prepaprar();
+		colaboradores = colaboradorRepository.findAll();
 		this.eventos = this.eventoRepository.findAll();
 	}
 
@@ -74,6 +83,11 @@ public class EventoBean implements Serializable {
 		}
 
 	}
+	
+	public void getColaboradoresPorProfissao(String profissao){
+		Iterable<Colaborador> findAllByProfissao = colaboradorRepository.findAllByProfissao(profissao);
+		evento.setColaboradorList((Set<Colaborador>) findAllByProfissao);
+	}
 
 	public void prepaprar() {
 
@@ -110,6 +124,14 @@ public class EventoBean implements Serializable {
 
 	public void setEventos(Iterable<Evento> eventos) {
 		this.eventos = eventos;
+	}
+
+	public Iterable<Colaborador> getColaboradores() {
+		return colaboradores;
+	}
+
+	public void setColaboradores(Iterable<Colaborador> colaboradores) {
+		this.colaboradores = colaboradores;
 	}
 
 	public boolean isOperacao() {

@@ -43,7 +43,7 @@
 							<p:panelGrid
 								columns="4"
 								layout="grid"
-								columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5">
+								columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
 
 								<p:outputLabel
 									for="nome"
@@ -94,7 +94,20 @@
 									minValue="1"
 									type="number"
 									value="#{eventoBean.evento.cargaHoraria}" />
-
+	
+								<p:outputLabel value="Colaboradores:" />
+								<p:selectManyMenu
+									value="#{eventoBean.evento.colaboradorList}"
+									id="colaboradoresList"
+									filter="true"
+									filterMatchMode="contains"
+									showCheckbox="true">
+									<f:selectItems
+										value="#{colaboradorBean.colaboradores}"
+										var="item"
+										itemLabel=" #{item.nome.toUpperCase()}"
+										itemValue="#{item}" />
+								</p:selectManyMenu>
 							</p:panelGrid>
 						</div>
 					</div>

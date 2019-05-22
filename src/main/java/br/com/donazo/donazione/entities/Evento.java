@@ -7,6 +7,8 @@ package br.com.donazo.donazione.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -72,6 +75,9 @@ public class Evento implements Serializable {
     @NotNull
     @Column(name = "cargaHoraria")
     private int cargaHoraria;
+    
+    @OneToMany(mappedBy = "evento")
+    private Set<Colaborador> colaboradorList = new HashSet<>();
 
     public Evento() {
     }
@@ -146,7 +152,15 @@ public class Evento implements Serializable {
         this.cargaHoraria = cargaHoraria;
     }
 
-    @Override
+    public Set<Colaborador> getColaboradorList() {
+		return colaboradorList;
+	}
+
+	public void setColaboradorList(Set<Colaborador> colaboradorList) {
+		this.colaboradorList = colaboradorList;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

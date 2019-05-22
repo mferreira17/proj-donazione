@@ -1,4 +1,5 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -16,7 +17,8 @@
 
 	<ui:define name="description">
         Está página referece ao cadastro de um novo <p:link
-			value="Colaborador" href="#" />.
+			value="Colaborador"
+			href="#" />.
     </ui:define>
 
 	<ui:define name="metadata">
@@ -40,7 +42,7 @@
 
 							<p:accordionPanel id="panelConteudo">
 								<p:tab
-									title="Informações gerais"
+									title="Informações"
 									titleStyleClass="box-solid">
 
 									<p:panelGrid
@@ -79,7 +81,7 @@
 									<p:panelGrid
 										columns="4"
 										layout="grid"
-										columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5">
+										columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
 
 										<p:outputLabel
 											for="endereco"
@@ -112,8 +114,9 @@
 										<p:outputLabel
 											for="cep"
 											value="CEP" />
-										<p:inputText
+										<p:inputMask
 											id="cep"
+											mask="99999-999"
 											value="#{colaboradorBean.colaborador.cep }" />
 									</p:panelGrid>
 								</p:tab>
@@ -125,14 +128,24 @@
 									<p:panelGrid
 										columns="4"
 										layout="grid"
-										columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5">
+										columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
 
 										<p:outputLabel
-											for="perfil"
+											for="select-perfil"
 											value="Perfil" />
-										<p:inputText
-											id="perfil"
-											value="#{colaboradorBean.colaborador.perfil }" />
+										<p:selectOneMenu
+											id="select-perfil"
+											value="#{colaboradorBean.colaborador.perfil }">
+											<f:selectItem
+												itemLabel="Selecione"
+												noSelectionOption="true" />
+											<f:selectItem
+												itemLabel="ADMINISTRADOR"
+												itemValue="A" />
+											<f:selectItem
+												itemLabel="COLABORADOR"
+												itemValue="C" />
+										</p:selectOneMenu>
 
 										<p:outputLabel
 											for="senha"
@@ -148,13 +161,19 @@
 											id="profissao"
 											value="#{colaboradorBean.colaborador.profissao }" />
 
+										<p:outputLabel
+											for="habilidade"
+											value="Habilidade" />
+										<p:inputText
+											id="habilidade"
+											value="#{colaboradorBean.colaborador.habilidade }" />
 									</p:panelGrid>
 
 								</p:tab>
 							</p:accordionPanel>
 						</div>
 					</div>
-					
+
 					<!--BOTOES-->
 					<div class="hidden-sm hidden-xs">
 						<p:commandButton
