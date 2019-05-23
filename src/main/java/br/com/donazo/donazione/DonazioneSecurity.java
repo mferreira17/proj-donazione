@@ -26,6 +26,7 @@ public class DonazioneSecurity extends WebSecurityConfigurerAdapter {
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/pages/index.xhtml");
 	
 		http.csrf().disable();
+
 	}
 	
 	@Override
