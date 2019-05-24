@@ -18,15 +18,10 @@ public class ItemDoacaoBean {
 
 	private List<ItemDoacao> itensDoacao;
 
-	private ItemDoacao itemDoacao;
+	private ItemDoacao itemDoacao = new ItemDoacao() ;
 	
-	public ItemDoacaoBean() {
-		
-	}
-	
-	@Autowired
-	private ItemDoacaoBean(ItemDoacaoRepository repository, ItemDoacao itemDoacao) {
-		this.repository = repository; this.itemDoacao = itemDoacao;
+	public ItemDoacaoBean(ItemDoacaoRepository repository) {
+		this.repository = repository; 
 	}
 
 	@PostConstruct
