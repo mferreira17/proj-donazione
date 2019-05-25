@@ -1,12 +1,16 @@
 package br.com.donazo.donazione.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
@@ -23,10 +27,12 @@ public class Grupo implements Serializable {
 	private String descricao;
 
 	@ManyToMany(mappedBy = "grupos")
-	private List<Colaborador> colaboradores;
+	private Set<Colaborador> colaboradores = new HashSet<>();
 
-	@ManyToMany
-	private List<Permissao> permissoes;
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinTable(name = "grupo_permissao", joinColumns = { @JoinColumn(name = "grupo_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "permissao_id") })
+	private Set<Permissao> permissoes = new HashSet<>();
 
 	public Integer getId() {
 		return id;
@@ -52,11 +58,11 @@ public class Grupo implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public List<Permissao> getPermissoes() {
+	public Set<Permissao> getPermissoes() {
 		return permissoes;
 	}
 
-	public void setPermissoes(List<Permissao> permissoes) {
+	public void setPermissoes(Set<Permissao> permissoes) {
 		this.permissoes = permissoes;
 	}
 
