@@ -1,19 +1,19 @@
 package br.com.donazo.donazione.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import br.com.donazo.donazione.entities.Campanha;
 import br.com.donazo.donazione.entities.ItemDoacao;
 import br.com.donazo.donazione.entities.Meta;
 import br.com.donazo.donazione.repositorios.CampanhaRepository;
 import br.com.donazo.donazione.repositorios.MetaRepository;
 import br.com.donazo.donazione.utils.MessagesUtil;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
 
 @Named
 @RequestScoped

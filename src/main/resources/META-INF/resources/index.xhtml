@@ -1,35 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html
-	xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:adm="http://github.com/adminfaces"
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Admin Faces</title>
-	<link
-		rel="shortcut icon"
-		type="image/x-icon"
+	<title>Donazione | Login</title>
+	<link rel="shortcut icon" type="image/x-icon"
 		href="#{resource['images/favicon.svg']}" />
 
 	<meta charset="utf-8" />
-	<meta
-		http-equiv="X-UA-Compatible"
-		content="IE=edge" />
-	<meta
-		name="viewport"
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport"
 		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-	<meta
-		name="mobile-web-app-capable"
-		content="yes" />
-	<h:outputStylesheet
-		library="css"
-		name="prism.css" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<h:outputStylesheet library="css" name="prism.css" />
 
-	<meta
-		name="theme-color"
-		content="#444" />
+	<meta name="theme-color" content="#444" />
 
 	<style type="text/css">
 
@@ -64,22 +52,38 @@ html {
 no-repeat
 
 
+
+
  
+
+
 
 
 center
 
 
+
+
  
+
+
 
 
 center
 
 
+
+
  
+
+
 
 
 fixed
+
+
+
+
 
 
 
@@ -90,13 +94,25 @@ fixed
 
 
 
+
+
+
+
 :
+
+
 
 
  
 
 
+
+
 cover
+
+
+
+
 
 
 
@@ -107,13 +123,25 @@ cover
 
 
 
+
+
+
+
 :
+
+
 
 
  
 
 
+
+
 cover
+
+
+
+
 
 
 
@@ -124,13 +152,25 @@ cover
 
 
 
+
+
+
+
 :
+
+
 
 
  
 
 
+
+
 cover
+
+
+
+
 
 
 
@@ -141,13 +181,25 @@ background-size
 
 
 
+
+
+
+
 :
+
+
 
 
  
 
 
+
+
 cover
+
+
+
+
 
 
 
@@ -166,28 +218,16 @@ cover
 
 
 <h:body styleClass="hold-transition login-page">
-	<div
-		id="loader"
-		class="load-bar"
-		style="display: none">
+	<div id="loader" class="load-bar" style="display: none">
 		<div class="bar"></div>
 		<div class="bar"></div>
 		<div class="bar"></div>
 	</div>
 
-	<p:dialog
-		id="adminStatusDialog"
-		modal="true"
-		widgetVar="statusDialog"
-		draggable="false"
-		closable="false"
-		resizable="false"
-		responsive="true"
-		showHeader="false"
-		appendTo="@(body)">
-		<p:graphicImage
-			library="images"
-			name="#{adminConfig.loadingImage}" />
+	<p:dialog id="adminStatusDialog" modal="true" widgetVar="statusDialog"
+		draggable="false" closable="false" resizable="false" responsive="true"
+		showHeader="false" appendTo="@(body)">
+		<p:graphicImage library="images" name="#{adminConfig.loadingImage}" />
 	</p:dialog>
 
 	<div class="login-box">
@@ -198,79 +238,58 @@ cover
 		<!-- /.login-logo -->
 		<div class="box login-box-body">
 			<h:form prependId="false">
-				<p class="login-box-msg">Bem-vindo ao CAC</p>
+				<div class="login-box-msg">
+					<h:outputText value="Bem-vindo ao CAC" styleClass=""
+						rendered="${empty param['logout']}" />
+					<h:outputText value="Volte logo!" styleClass="login-box-msg"
+						rendered="${!empty param['logout']}" />
+				</div>
 				<p:messages closable="true" />
 				<p:growl sticky="true" />
 				<div class="form-group has-feedback">
-					<p:inputText
-						value="#{logonMB.email}"
-						type="email"
-						styleClass="form-control"
-						placeholder="Email"
-						id="username"
-						required="true"
-						autocomplete="off"
-						requiredMessage="Email é obrigatório." />
+					<p:inputText type="email" styleClass="form-control"
+						placeholder="Email" id="username" name="username" required="true"
+						autocomplete="off" requiredMessage="Email é obrigatório." />
 					<i class="fa fa-envelope form-control-feedback"></i>
 				</div>
 				<div class="form-group has-feedback">
-					<p:inputText
-						value="#{logonMB.password}"
-						type="password"
-						styleClass="form-control"
-						placeholder="Senha"
-						required="true"
-						autocomplete="off"
-						id="password"
+					<p:inputText type="password" styleClass="form-control"
+						placeholder="Senha" required="true" autocomplete="off"
+						name="password" id="password"
 						requiredMessage="Senha é obrigatório." />
-					<i
-						class="fa fa-lock form-control-feedback"
-						style="font-size: 18px"></i>
+					<i class="fa fa-lock form-control-feedback" style="font-size: 18px"></i>
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
-						<!-- 						<p:selectBooleanCheckbox -->
-						<!-- 							itemLabel="Lembre-se" -->
-						<!-- 							value="#{logonMB.remember}" /> -->
-						<p:outputLabel
-							value="Email ou senha inválidos!"
-							style="color:red"
+						<p:selectBooleanCheckbox itemLabel="Lembre-se" id="remember-me"
+							name="remember-me" />
+						<br />
+						<p:outputLabel value="Email ou senha inválidos!" style="color:red"
 							rendered="${!empty param['error']}" />
 					</div>
 					<p:spacer height="10" />
 					<div class="col-xs-12">
-						<!--                             <p:commandButton styleClass="btn btn-success btn-block" onclick="showBar()" -->
-						<!--                                              action="#{logonMB.doLogon}" oncomplete="if(args.validationFailed) { hideBar()}" -->
-						<!--                                              value="Entrar" process="@form" update="@form"/> -->
-						<p:commandButton
-							styleClass="btn btn-block"
-							style="background-color: #605ca8;color: white;"
-							value="Entrar"
+						<p:commandButton styleClass="btn btn-block"
+							style="background-color: #605ca8;color: white;" value="Entrar"
 							ajax="false" />
 					</div>
 				</div>
 			</h:form>
+			<br />
 			<h:outputLabel>
 				<a href="#">Esqueceu sua senha?</a>
 			</h:outputLabel>
 			<br />
-			<h:outputLabel>Ainda não e membro? <a
-					href="#"
-					class="text-center">Cadastre-se!</a>
+			<h:outputLabel>Ainda não e membro? <p:link
+					href="/publica/cadastro.xhtml" class="text-center">Cadastre-se!</p:link>
 			</h:outputLabel>
 
 		</div>
 		<!-- /.login-box-body -->
 	</div>
 
-	<h:outputScript
-		library="js"
-		name="prism.js"
-		target="head" />
-	<h:outputScript
-		library="js"
-		name="admintemplate.js"
-		target="head" />
+	<h:outputScript library="js" name="prism.js" target="head" />
+	<h:outputScript library="js" name="admintemplate.js" target="head" />
 	<adm:ripple />
 
 

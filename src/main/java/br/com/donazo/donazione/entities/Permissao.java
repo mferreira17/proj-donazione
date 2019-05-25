@@ -1,16 +1,18 @@
 package br.com.donazo.donazione.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -27,11 +29,16 @@ public class Permissao implements Serializable {
 	@Column(name = "nome")
 	private String nome;
 
-	@ManyToMany(mappedBy = "permissoes")
-	private List<Colaborador> colaboradores;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "perfil")
+	private Character perfil;
 
 	@ManyToMany(mappedBy = "permissoes")
-	private List<Grupo> grupos;
+	private Set<Colaborador> colaboradores = new HashSet<>();
+
+	@ManyToMany(mappedBy = "permissoes")
+	private Set<Grupo> grupos = new HashSet<>();;
 
 	public Integer getId() {
 		return id;
@@ -49,19 +56,27 @@ public class Permissao implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<Colaborador> getColaboradores() {
+	public Character getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Character perfil) {
+		this.perfil = perfil;
+	}
+
+	public Set<Colaborador> getColaboradores() {
 		return colaboradores;
 	}
 
-	public void setColaboradores(List<Colaborador> colaboradores) {
+	public void setColaboradores(Set<Colaborador> colaboradores) {
 		this.colaboradores = colaboradores;
 	}
 
-	public List<Grupo> getGrupos() {
+	public Set<Grupo> getGrupos() {
 		return grupos;
 	}
 
-	public void setGrupos(List<Grupo> grupos) {
+	public void setGrupos(Set<Grupo> grupos) {
 		this.grupos = grupos;
 	}
 

@@ -146,20 +146,12 @@
 							styleClass="btn-primary"
 							action="#{campanhaBean.salvar}" />
 
-
-						<p:commandButton
-							value="Excluir"
-							process="@this"
-							icon="fa fa-trash"
-							styleClass="btn-danger">
-						</p:commandButton>
-
 						<p:commandButton
 							value="Voltar"
 							immediate="true"
-							action="lista-campanhas?faces-redirect=true"
+							action="/autenticado/pages/campanha/lista/lista-campanhas.xhtml?faces-redirect=true"
 							process="@this"
-							icon="fa fa-angle-double-left" />
+							icon="fa fa-reply" />
 					</div>
 
 					<p:splitButton
@@ -168,16 +160,12 @@
 						icon="fa fa-check"
 						styleClass="hidden-md hidden-lg btn-primary"
 						action="#{campanhaBean.salvar}">
-						<p:menuitem
-							value="Excluir"
-							process="@this"
-							icon="fa fa-trash" />
 						<p:separator />
 						<p:menuitem
 							value="Voltar"
-							action="lista-campanhas?faces-redirect=true"
+							action="/autenticado/pages/campanha/lista/lista-campanhas.xhtml?faces-redirect=true"
 							process="@this"
-							icon="fa fa-angle-double-left" />
+							icon="fa fa-reply" />
 					</p:splitButton>
 
 				</div>

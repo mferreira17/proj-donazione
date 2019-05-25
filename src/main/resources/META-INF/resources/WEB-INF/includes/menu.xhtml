@@ -1,52 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
 
 
 	<ul class="sidebar-menu" data-widget="tree">
-		<li><p:link href="/pages/index.xhtml">
+		<li><p:link href="/autenticado/dashboard.xhtml">
 				<i class="fa fa-home"></i>
 				<span>Home</span>
 			</p:link></li>
 
 		<!-- COLABORADOR -->
-		<li class="header">Colaborador</li>
-		<li class="treeview"><a href="#"> <i class="fa fa-group"></i>
-				<span>Colaboradores</span> <span class="pull-right-container">
-					<i class="fa fa-angle-left pull-right"></i>
-			</span>
-		</a>
-			<ul class="treeview-menu">
-				<li><p:link
-						outcome="/pages/colaborador/lista-colaboradores.xhtml">
-						<i class="fa fa-smile-o"></i>
-						<span>Exibir Colaboradores</span>
-					</p:link></li>
-				<li><p:link href="/pages/colaborador/novo-colaborador.xhtml">
-						<i class="fa fa-file"></i>
-						<span>Novo Colaborador</span>
-					</p:link></li>
-			</ul></li>
-
+		<h:panelGroup rendered="#{usuarioBean.administrador }">
+			<li class="header">Colaborador</li>
+			<li class="treeview"><a href="#"> <i class="fa fa-group"></i>
+					<span>Colaboradores</span> <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+				<ul class="treeview-menu">
+					<li><p:link
+							outcome="/autenticado/pages/colaborador/lista/lista-colaboradores.xhtml">
+							<i class="fa fa-smile-o"></i>
+							<span>Exibir Colaboradores</span>
+						</p:link></li>
+					<li><p:link href="/autenticado/pages/colaborador/novo-colaborador.xhtml">
+							<i class="fa fa-file"></i>
+							<span>Novo Colaborador</span>
+						</p:link></li>
+				</ul></li>
+		</h:panelGroup>
 		<!-- CAMPANHAS -->
-		<li class="header">Campanha</li>
-		<li class="treeview"><a href="#"> <i class="fa fa-flag"></i>
-				<span>Campanhas</span> <span class="pull-right-container"> <i
-					class="fa fa-angle-left pull-right"></i>
-			</span>
-		</a>
-			<ul class="treeview-menu">
-				<li><p:link outcome="/pages/campanha/lista-campanhas.xhtml">
-						<i class="fa fa-flag-o"></i>
-						<span>Exibir Campanhas</span>
-					</p:link></li>
-				<li><p:link outcome="/pages/campanha/nova-campanha.xhtml">
-						<i class="fa fa-file"></i>
-						<span>Nova Campanha</span>
-					</p:link></li>
-			</ul></li>
-
+		<h:panelGroup rendered="#{usuarioBean.administrador }">
+			<li class="header">Campanha</li>
+			<li class="treeview"><a href="#"> <i class="fa fa-flag"></i>
+					<span>Campanhas</span> <span class="pull-right-container"> <i
+						class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+				<ul class="treeview-menu">
+					<li><p:link outcome="/autenticado/pages/campanha/lista/lista-campanhas.xhtml">
+							<i class="fa fa-flag-o"></i>
+							<span>Exibir Campanhas</span>
+						</p:link></li>
+					<li><p:link outcome="/autenticado/pages/campanha/nova-campanha.xhtml">
+							<i class="fa fa-file"></i>
+							<span>Nova Campanha</span>
+						</p:link></li>
+				</ul></li>
+		</h:panelGroup>
 		<!-- EVENTOS -->
 		<li class="header">Eventos</li>
 		<li class="treeview"><a href="#"> <i class="fa fa-blind"></i>
@@ -55,16 +58,16 @@
 			</span>
 		</a>
 			<ul class="treeview-menu">
-				<li><p:link outcome="/pages/evento/lista-eventos.xhtml">
+				<li><p:link outcome="/autenticado/pages/evento/lista/lista-eventos.xhtml">
 						<i class="fa fa-star"></i>
 						<span>Exibir Eventos</span>
 					</p:link></li>
-				<li><p:link outcome="/pages/evento/novo-evento.xhtml">
+				<li><p:link outcome="/autenticado/pages/evento/novo-evento.xhtml"
+						rendered="#{usuarioBean.administrador }">
 						<i class="fa fa-file"></i>
 						<span>Novo Evento</span>
 					</p:link></li>
 			</ul></li>
-
 
 		<!-- DOACOES -->
 		<li class="header">Doações</li>
@@ -74,34 +77,36 @@
 			</span>
 		</a>
 			<ul class="treeview-menu">
-				<li><p:link outcome="/pages/doacao/lista-doacoes.xhtml">
+				<li><p:link outcome="/autenticado/pages/doacao/lista/lista-doacoes.xhtml">
 						<i class="fa fa-heart-o"></i>
 						<span>Exibir Doações</span>
 					</p:link></li>
-				<li><p:link outcome="/pages/doacao/nova-doacao.xhtml">
+				<li><p:link outcome="/autenticado/pages/doacao/nova-doacao.xhtml">
 						<i class="fa fa-file"></i>
 						<span>Nova Doação</span>
 					</p:link></li>
 			</ul></li>
-	
-	<!-- ITENS DE DOACOES -->
-			
+
+		<!-- ITENS DE DOACOES -->
+		<h:panelGroup rendered="#{usuarioBean.administrador }">
 			<li class="header">Itens de Doações</li>
-		<li class="treeview"><a href="#"> <i class="fa fa-heart"></i>
-				<span>Itens de Doação</span> <span class="pull-right-container"> <i
-					class="fa fa-angle-left pull-right"></i>
-			</span>
-		</a>
-			<ul class="treeview-menu">
-				<li><p:link outcome="/pages/itemdoacao/lista-item-doacao.xhtml">
-						<i class="fa fa-file"></i>
-						<span>Exibir Itens de Doação</span>
-					</p:link></li>
-				<li><p:link outcome="/pages/itemdoacao/item-doacao.xhtml">
-						<i class="fa fa-file"></i>
-						<span>Novo Item de Doação</span>
-					</p:link></li>
-			</ul></li>
+			<li class="treeview"><a href="#"> <i class="fa fa-heart"></i>
+					<span>Itens de Doação</span> <span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+				<ul class="treeview-menu">
+					<li><p:link
+							outcome="/autenticado/pages/itemdoacao/lista/lista-item-doacao.xhtml">
+							<i class="fa fa-file"></i>
+							<span>Exibir Itens de Doação</span>
+						</p:link></li>
+					<li><p:link outcome="/autenticado/pages/itemdoacao/item-doacao.xhtml">
+							<i class="fa fa-file"></i>
+							<span>Novo Item de Doação</span>
+						</p:link></li>
+				</ul></li>
+		</h:panelGroup>
 	</ul>
 
 </ui:composition>

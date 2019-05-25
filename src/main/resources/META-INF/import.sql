@@ -1,11 +1,11 @@
-insert into Colaborador (id, nome, celular, habilidade, profissao, email, senha) values (1, 'CAC Admin', '00000000000','Não sei', 'Administrador do CAC', 'cac@gmail.com', '$2a$10$BKm4MGZKEfZFsa/dBdHnD.nj7QWMqmHiAaIesqnXsp9lBcZtH2yba');
+insert into permissao (id, nome, perfil) values 
+(1, 'ROLE_ADMINISTRADOR', 'A'), (2, 'ROLE_COLABORADOR', 'C');
 
-insert into Grupo (id, nome, descricao) values (1, 'CAC', 'Centro Alternativo Cultural');
+-- Usuario: cac@gmail.com
+-- Senha: 12345678
 
-insert into Permissao (id, nome) values (1, 'ADMINISTRADOR');
-insert into Permissao (id, nome) values (2, 'COLABORADOR');
-
-insert into Usuario_Grupo (colaboradores_id, grupos_id) values (1, 1);
-
-insert into Grupo_Permissao (grupos_id, permissoes_id) values (1, 1);
-insert into Grupo_Permissao (grupos_id, permissoes_id) values (1, 2);
+insert into colaborador (id, nome, celular, habilidade, profissao,perfil, email, senha, ativo) values 
+(1, 'CAC Admin', '00000000000','Não sei', 'Administrador do CAC','A', 'cac@gmail.com', '$2a$10$HHwmrb2NnHA.neLFui4JvepmKcUlevw7hLvI0iGef8YXol2aPtXv.', true);
+			
+insert into colaboradores_permissoes (colaborador_id, permissao_id) values 
+(1, 1)
