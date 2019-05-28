@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -108,6 +107,12 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.7.0</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>
@@ -116,6 +121,10 @@
 			<name>PrimeFaces Maven Repository</name>
 			<url>http://repository.primefaces.org</url>
 			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>jaspersoft</id>
+			<url>http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/</url>
 		</repository>
 	</repositories>
 	<build>
