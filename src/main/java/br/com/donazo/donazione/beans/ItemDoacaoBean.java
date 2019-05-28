@@ -21,7 +21,6 @@ public class ItemDoacaoBean {
 	private ItemDoacao itemDoacao;
 	
 	public ItemDoacaoBean() {
-		
 	}
 	
 	@Autowired

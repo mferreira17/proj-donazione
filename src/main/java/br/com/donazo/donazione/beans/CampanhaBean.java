@@ -15,6 +15,14 @@ import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * <p>Classe Responsável por Controlar as acões de tela referentes 
+ * a {@link br.com.donazo.donazione.entities.Campanha}</p>
+ * 
+ * @author Márcio Ferreira
+ */
+
 @Named
 @RequestScoped
 public class CampanhaBean {
