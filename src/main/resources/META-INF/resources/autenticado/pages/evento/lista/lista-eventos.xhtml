@@ -1,0 +1,180 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title-page">
+       Eventos
+    </ui:define>
+
+	<ui:define name="title">
+        Eventos
+    </ui:define>
+
+	<ui:define name="description">
+        Está página referece a listagem de <p:link value="Eventos"
+			href="#" />.
+    </ui:define>
+
+	<ui:define name="metadata">
+		<f:metadata>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="body">
+
+		<adm:breadcrumb title="Eventos" />
+
+		<h:form id="formConteudo" prependId="false">
+
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<!--BOTOES-->
+					<div>
+						<p:button value="Novo" rendered="#{usuarioBean.administrador }" outcome="/autenticado/pages/evento/novo-evento.xhtml?faces-redirect=true"
+							icon="fa fa-check" styleClass="btn-primary" />
+					</div>
+
+					<p:spacer width="5" />
+
+					<p:outputPanel id="listagem">
+
+						<div class="ui-g ui-fluid">
+							<div class="ui-g-12">
+
+								<p:dataTable id="tableId" var="registro" widgetVar="tableId"
+									value="#{eventoBean.eventos }" paginatorPosition="bottom"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+									rowsPerPageTemplate="5,10,15,20,30" paginator="true" rows="10">
+
+									<p:ajax event="rowSelectCheckbox" update="@(.ui-button)" />
+									<p:ajax event="rowUnselectCheckbox" update="@(.ui-button)" />
+									<p:ajax event="rowSelect" update="@(.ui-button)" />
+									<p:ajax event="rowUnselect" update="@(.ui-button)" />
+
+									<p:column headerText="Nome">
+										<p:outputLabel value="#{registro.nome}" />
+									</p:column>
+
+									<p:column headerText="Descrição">
+										<p:outputLabel value="#{registro.descricao}" />
+									</p:column>
+									<p:column headerText="Data de incio">
+										<p:outputLabel value="#{registro.inicio}">
+											<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+										</p:outputLabel>
+									</p:column>
+									<p:column headerText="Data de fim">
+										<p:outputLabel value="#{registro.fim}">
+											<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+										</p:outputLabel>
+									</p:column>
+									<p:column headerText="Carga horária">
+										<p:outputLabel value="#{registro.cargaHoraria}" />
+									</p:column>
+									<p:column headerText="Profissionais Convocados">
+										<p:outputLabel value="#{registro.profissoesConvocadas}" />
+									</p:column>
+
+									<p:column headerText="Operações" exportable="false">
+										<p:commandButton icon="fa fa-pencil-square" title="Editar"
+											styleClass="btn-primary" process="@this"
+											update=":formConteudo:dialogo"
+											oncomplete="PF('dialog').show()">
+											<f:setPropertyActionListener target="#{eventoBean.evento}"
+												value="#{registro}" />
+										</p:commandButton>
+
+										<p:commandButton icon="fa fa-trash" process="@this"
+											update="@form" title="Excluir" styleClass="btn-fatal"
+											action="#{eventoBean.gravarExcluir() }">
+
+											<f:param value="#{registro.id}" name="evento" />
+											<p:confirm header="Confirmação"
+												message="Você tem certeza que deseja excluir o evento #{registro.nome} ?"
+												icon="fa fa-exclamation-triangle" />
+										</p:commandButton>
+									</p:column>
+
+								</p:dataTable>
+
+							</div>
+						</div>
+
+					</p:outputPanel>
+				</div>
+			</div>
+
+			<!--MODAL -->
+			<h:panelGroup id="dialogo">
+				<p:dialog header="Editar #{eventoBean.evento.nome }" closable="true"
+					closeOnEscape="true" draggable="false" resizable="false"
+					responsive="true" modal="true" widgetVar="dialog">
+
+					<p:ajax event="close" update=":formConteudo:listagem" />
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-12">
+
+							<p:panelGrid columns="4" layout="grid"
+								columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5">
+
+								<p:outputLabel for="nome" value="Nome" />
+								<p:inputText id="nome" placeholder="Insira o nome da ação"
+									maxlength="50" value="#{eventoBean.evento.nome}" />
+
+								<p:outputLabel for="descricao" value="Descricao" />
+								<p:inputText id="descricao" placeholder="Insira a descrição"
+									maxlength="200" value="#{eventoBean.evento.descricao}" />
+
+								<p:outputLabel for="dataInicio" value="Data ínicio" />
+								<p:calendar id="dataInicio"
+									placeholder="Insira a data de inicio"
+									pattern="dd/MM/yyyy HH:mm" mindate="#{dateUtil.dataAtual }"
+									mask="99/99/9999 99:99" value="#{eventoBean.evento.inicio}" />
+
+								<p:outputLabel for="dataFim" value="Data fim" />
+								<p:calendar id="dataFim" placeholder="Insira a data de fim"
+									mask="99/99/9999 99:99" mindate="#{dateUtil.dataAtual }"
+									pattern="dd/MM/yyyy HH:mm" value="#{eventoBean.evento.fim}" />
+
+								<p:outputLabel for="cargaHoraria" value="Carga horária" />
+								<p:inputText id="cargaHoraria"
+									placeholder="Insira a carga horária em minutos" minValue="1"
+									type="number" value="#{eventoBean.evento.cargaHoraria}" />
+
+							</p:panelGrid>
+						</div>
+					</div>
+
+					<!--BOTOES-->
+					<div class="hidden-sm hidden-xs">
+						<p:commandButton value="Salvar"
+							action="#{eventoBean.gravarAlterar() }"
+							oncomplete="PF('dialog').hide()" icon="fa fa-check"
+							styleClass="btn-primary" />
+
+						<p:commandButton value="Voltar" immediate="true"
+							onclick="PF('dialog').hide()" process="@this"
+							icon="fa fa-reply " />
+					</div>
+
+					<p:splitButton value="Salvar"
+						action="#{eventoBean.gravarAlterar() }"
+						oncomplete="PF('dialog').hide()" icon="fa fa-check"
+						styleClass="hidden-md hidden-lg btn-primary">
+						<p:separator />
+						<p:menuitem value="Voltar" onclick="PF('dialog').hide()"
+							process="@this" icon="fa fa-reply " />
+					</p:splitButton>
+
+				</p:dialog>
+			</h:panelGroup>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

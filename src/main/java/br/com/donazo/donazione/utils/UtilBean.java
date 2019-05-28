@@ -71,36 +71,4 @@ public class UtilBean {
 		}
 	}
 
-//	    public static Usuario obterUsuarioLogado() {
-//	        final String CHAVE_PESSOA = "pessoa";
-//	        Object objUsuario = UtilBean.daSessao(CHAVE_PESSOA);
-//	        if (objUsuario == null) {
-//	            String emailOuCelular = UtilBean.obterLoginDaSessao();
-//	            UsuarioRN usuarioRN = new UsuarioRN();
-//	            Usuario usuario = usuarioRN.obter(emailOuCelular);
-//	            Usuario usuarioTemp = null;
-//	            //Clonando o usuário logado (sem a senha)
-//	            if (usuario != null) {
-//	                usuarioTemp = new Usuario();
-//	                usuarioTemp.setId(usuario.getId());
-//	                usuarioTemp.setNome(usuario.getNome());
-//	                usuarioTemp.setCelular(usuario.getCelular());
-//	                usuarioTemp.setEmail(usuario.getEmail());
-//	                usuarioTemp.setPerfil(usuario.getPerfil());
-//	            }
-//	            UtilBean.naSessao(CHAVE_PESSOA, usuarioTemp);
-//
-//	            return usuarioTemp;
-//	        } else {
-//	            return (Usuario) objUsuario;
-//	        }
-//	    }
-//
-//	    public static void atualizarUsuarioLogado(Usuario usuario) {
-//	        final String CHAVE_PESSOA = "pessoa";
-//	        if (usuario != null) {
-//	            naSessao(CHAVE_PESSOA, usuario);
-//	        }
-//	    }
-
 }

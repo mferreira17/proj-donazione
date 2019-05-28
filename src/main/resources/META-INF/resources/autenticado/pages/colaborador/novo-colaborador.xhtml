@@ -1,0 +1,215 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title-page">
+        Novo Colaborador
+    </ui:define>
+
+	<ui:define name="title">
+        Novo Colaborador
+    </ui:define>
+
+	<ui:define name="description">
+        Está página referece ao cadastro de um novo <p:link
+			value="Colaborador"
+			href="#" />.
+    </ui:define>
+
+	<ui:define name="metadata">
+		<f:metadata>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="body">
+
+		<adm:breadcrumb title="Novo Colaborador" />
+
+		<h:form
+			id="formColaborador"
+			prependId="false">
+
+			<div class="box box-primary">
+				<div class="box-header with-border">
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-12">
+
+							<p:accordionPanel id="panelConteudo">
+								<p:tab
+									title="Informações"
+									titleStyleClass="box-solid">
+
+									<p:panelGrid
+										columns="4"
+										layout="grid"
+										columnClasses="ui-grid-col-1,ui-grid-col-5,ui-grid-col-1,ui-grid-col-5">
+
+										<p:outputLabel
+											for="nome"
+											value="Nome" />
+										<p:inputText
+											id="nome"
+											value="#{colaboradorBean.colaborador.nome }" />
+
+										<p:outputLabel
+											for="email"
+											value="Email" />
+										<p:inputText
+											id="email"
+											value="#{colaboradorBean.colaborador.email }" />
+
+										<p:outputLabel
+											for="celular"
+											value="Celular" />
+										<p:inputMask
+											id="celular"
+											mask="(99) 99999-9999"
+											value="#{colaboradorBean.colaborador.celular }" />
+									</p:panelGrid>
+								</p:tab>
+
+								<p:tab
+									title="Endereço"
+									titleStyleClass="box-solid">
+
+									<p:panelGrid
+										columns="4"
+										layout="grid"
+										columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
+
+										<p:outputLabel
+											for="endereco"
+											value="Endereco" />
+										<p:inputText
+											id="endereco"
+											value="#{colaboradorBean.colaborador.logradouro }" />
+
+										<p:outputLabel
+											for="numero"
+											value="Número" />
+										<p:inputText
+											id="numero"
+											value="#{colaboradorBean.colaborador.numero }" />
+
+										<p:outputLabel
+											for="complemento"
+											value="Complemento" />
+										<p:inputText
+											id="complemento"
+											value="#{colaboradorBean.colaborador.complemento }" />
+
+										<p:outputLabel
+											for="bairro"
+											value="Bairro" />
+										<p:inputText
+											id="bairro"
+											value="#{colaboradorBean.colaborador.bairro }" />
+
+										<p:outputLabel
+											for="cep"
+											value="CEP" />
+										<p:inputMask
+											id="cep"
+											mask="99999-999"
+											value="#{colaboradorBean.colaborador.cep }" />
+									</p:panelGrid>
+								</p:tab>
+
+								<p:tab
+									title="Perfil"
+									titleStyleClass="box-solid">
+
+									<p:panelGrid
+										columns="4"
+										layout="grid"
+										columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
+
+										<p:outputLabel
+											for="select-perfil"
+											value="Perfil" />
+										<p:selectOneMenu
+											id="select-perfil"
+											value="#{colaboradorBean.colaborador.perfil }">
+											<f:selectItem
+												itemLabel="Selecione"
+												noSelectionOption="true" />
+											<f:selectItem
+												itemLabel="ADMINISTRADOR"
+												itemValue="A" />
+											<f:selectItem
+												itemLabel="COLABORADOR"
+												itemValue="C" />
+										</p:selectOneMenu>
+
+										<p:outputLabel
+											for="senha"
+											value="Senha" />
+										<p:password
+											id="senha"
+											value="#{colaboradorBean.colaborador.senha }" />
+
+										<p:outputLabel
+											for="profissao"
+											value="Profissão" />
+										<p:inputText
+											id="profissao"
+											value="#{colaboradorBean.colaborador.profissao }" />
+
+										<p:outputLabel
+											for="habilidade"
+											value="Habilidade" />
+										<p:inputText
+											id="habilidade"
+											value="#{colaboradorBean.colaborador.habilidade }" />
+									</p:panelGrid>
+
+								</p:tab>
+							</p:accordionPanel>
+						</div>
+					</div>
+
+					<!--BOTOES-->
+					<div class="hidden-sm hidden-xs">
+						<p:commandButton
+							value="Salvar"
+							update="@form"
+							action="#{colaboradorBean.gravarInserir() }"
+							icon="fa fa-check"
+							styleClass="btn-primary" />
+
+						<p:commandButton
+							value="Voltar"
+							immediate="true"
+							action="/autenticado/pages/colaborador/lista/lista-colaboradores.xhtml?faces-redirect=true"
+							process="@this"
+							icon="fa fa-reply " />
+					</div>
+
+					<p:splitButton
+						value="Salvar"
+						action="#{acaoBean.gravarInserir() }"
+						update="@form"
+						icon="fa fa-check"
+						styleClass="hidden-md hidden-lg btn-primary">
+
+						<p:separator />
+						<p:menuitem
+							value="Voltar"
+							action="/autenticado/pages/colaborador/lista/lista-colaboradores.xhtml?faces-redirect=true"
+							process="@this"
+							icon="fa fa-reply " />
+					</p:splitButton>
+
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

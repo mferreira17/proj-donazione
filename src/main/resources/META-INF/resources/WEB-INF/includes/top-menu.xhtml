@@ -1,19 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <ul class="nav navbar-nav">
-        <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <pe:gravatar id="userImage"
-                             value="mm"/>
-                <span class="hidden-xs">Alvaro Luiz Reis Barros</span>
-            </a>
-        </li>
-    </ul>
+	<ul class="nav navbar-nav">
+		<li class="dropdown user user-menu"><a href="#"
+			class="dropdown-toggle" data-toggle="dropdown"> <pe:gravatar
+					id="userImage" value="mm" /> <span class="hidden-xs"><p:outputLabel
+						value="#{usuarioBean.colaboradorLogado.nome}" /></span>
+		</a>
+			<ul class="dropdown-menu">
+				<li class="user-header">
+					<div class="hidden-xs">
+						<pe:gravatar style="border-radius: 50%" value="mm" />
+					</div>
+					<p>
+						<h:outputText value="#{usuarioBean.colaboradorLogado.email}" />
+						<small> <p:outputLabel
+								value="#{usuarioBean.perfilDoUsuarioLogado}" />
+						</small>
+					</p>
+				</li>
+				<li class="user-footer"><h:form prependId="false">
+						<div class="pull-left">
+							<p:commandButton styleClass="btn btn-danger"
+								actionListener="#{usuarioBean.preparar()}" value="Alterar senha"
+								onclick="PF('alterarSenhaDialog').show()" />
+						</div>
+						<div class="pull-right">
+							<p:link title="Logout" href="/logout">
+								<i class="fa fa-sign-out fa-2x"></i>
+							</p:link>
+						</div>
+					</h:form></li>
+			</ul></li>
+	</ul>
 
+	<p:dialog id="alterarSenha" widgetVar="alterarSenhaDialog" modal="true"
+		draggable="false" closable="true" position="center" resizable="false"
+		responsive="true" header="Alterar Senha">
+		<h:form prependId="false">
+		<p:messages id="erroMsg"/>
+			<p:panelGrid layout="grid" columns="1">
+				<p:password styleClass="form-control"
+					value="#{usuarioBean.senhaNova}" placeholder="Nova Senha"
+					required="true" autocomplete="off" name="senha" id="Senha"
+					match="confirma-senha" requiredMessage="Senha nova é obrigatória." validatorMessage="Senhas diferentes"/>
+
+				<p:password styleClass="form-control"
+					value="#{usuarioBean.senhaNova}"
+					placeholder="Confirme a Nova Senha" required="true"
+					autocomplete="off" name="senha" id="confirma-senha"
+					requiredMessage="Confirmar a senha nova é obrigatório." />
+
+				<p:commandButton styleClass="btn btn-success btn-block"
+					action="#{usuarioBean.gravarAlterarSenha() }" update="erroMsg @form"
+					oncomplete="if(!args.validationFailed){PF('alterarSenhaDialog').hide();}"
+					value="Salvar" />
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
 
 </ui:composition>

@@ -7,9 +7,12 @@
 	template="/admin.xhtml">
 
 	<ui:define name="head">
-
-		<h:outputStylesheet name="/static/css/showcase.css" />
-		<h:outputStylesheet name="/static/css/prism.css" />
+		<h:outputStylesheet
+			library="css"
+			name="showcase.css" />
+		<h:outputStylesheet
+			library="css"
+			name="prism.css" />
 
 		<link
 			rel="stylesheet"
@@ -21,17 +24,16 @@
 			href="#{resource['images/favicon.svg']}" />
 
 		<title>Donazione |<ui:insert name="title-page"> Área administrativa </ui:insert></title>
-
-
 	</ui:define>
 
 	<ui:define name="logo-lg">
-		<strong>Dona</strong>zone
+		<strong>Dona</strong>zione
     </ui:define>
 
 	<ui:define name="logo-mini">
 		<p:graphicImage
-			value="/static/images/favicon.svg"
+			library="images"
+			name="favicon.svg"
 			style="width: 60%;" />
 	</ui:define>
 
@@ -82,8 +84,8 @@
 			<i>v1.0</i>
 		</div>
 
-		<h:outputScript name="/static/js/prism.js" />
-		<h:outputScript name="/static/js/traducao-calendar.js" />
+		<h:outputScript library="js" name="prism.js" />
+		<h:outputScript  library="js" name="traducao-calendar.js" />
 	</ui:define>
 
 </ui:composition>

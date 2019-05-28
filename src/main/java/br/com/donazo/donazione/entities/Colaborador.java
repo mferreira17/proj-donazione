@@ -1,231 +1,428 @@
 package br.com.donazo.donazione.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "colaborador")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Colaborador.findAll", query = "SELECT c FROM Colaborador c")
-    , @NamedQuery(name = "Colaborador.findById", query = "SELECT c FROM Colaborador c WHERE c.id = :id")
-    , @NamedQuery(name = "Colaborador.findByNome", query = "SELECT c FROM Colaborador c WHERE c.nome = :nome")
-    , @NamedQuery(name = "Colaborador.findByEmail", query = "SELECT c FROM Colaborador c WHERE c.email = :email")
-    , @NamedQuery(name = "Colaborador.findByCelular", query = "SELECT c FROM Colaborador c WHERE c.celular = :celular")
-    , @NamedQuery(name = "Colaborador.findByLogradouro", query = "SELECT c FROM Colaborador c WHERE c.logradouro = :logradouro")
-    , @NamedQuery(name = "Colaborador.findByNumero", query = "SELECT c FROM Colaborador c WHERE c.numero = :numero")
-    , @NamedQuery(name = "Colaborador.findByComplemento", query = "SELECT c FROM Colaborador c WHERE c.complemento = :complemento")
-    , @NamedQuery(name = "Colaborador.findByBairro", query = "SELECT c FROM Colaborador c WHERE c.bairro = :bairro")
-    , @NamedQuery(name = "Colaborador.findByCep", query = "SELECT c FROM Colaborador c WHERE c.cep = :cep")
-    , @NamedQuery(name = "Colaborador.findBySenha", query = "SELECT c FROM Colaborador c WHERE c.senha = :senha")
-    , @NamedQuery(name = "Colaborador.findByPerfil", query = "SELECT c FROM Colaborador c WHERE c.perfil = :perfil")
-    , @NamedQuery(name = "Colaborador.findByProfissao", query = "SELECT c FROM Colaborador c WHERE c.profissao = :profissao")
-	})
+@NamedQueries({ @NamedQuery(name = "Colaborador.findAll", query = "SELECT c FROM Colaborador c"),
+		@NamedQuery(name = "Colaborador.findById", query = "SELECT c FROM Colaborador c WHERE c.id = :id"),
+		@NamedQuery(name = "Colaborador.findByNome", query = "SELECT c FROM Colaborador c WHERE c.nome = :nome"),
+		@NamedQuery(name = "Colaborador.findByEmail", query = "SELECT c FROM Colaborador c WHERE c.email = :email"),
+		@NamedQuery(name = "Colaborador.findByCelular", query = "SELECT c FROM Colaborador c WHERE c.celular = :celular"),
+		@NamedQuery(name = "Colaborador.findByLogradouro", query = "SELECT c FROM Colaborador c WHERE c.logradouro = :logradouro"),
+		@NamedQuery(name = "Colaborador.findByNumero", query = "SELECT c FROM Colaborador c WHERE c.numero = :numero"),
+		@NamedQuery(name = "Colaborador.findByComplemento", query = "SELECT c FROM Colaborador c WHERE c.complemento = :complemento"),
+		@NamedQuery(name = "Colaborador.findByBairro", query = "SELECT c FROM Colaborador c WHERE c.bairro = :bairro"),
+		@NamedQuery(name = "Colaborador.findByCep", query = "SELECT c FROM Colaborador c WHERE c.cep = :cep"),
+		@NamedQuery(name = "Colaborador.findBySenha", query = "SELECT c FROM Colaborador c WHERE c.senha = :senha"),
+		@NamedQuery(name = "Colaborador.findByPerfil", query = "SELECT c FROM Colaborador c WHERE c.perfil = :perfil"),
+		@NamedQuery(name = "Colaborador.findByProfissao", query = "SELECT c FROM Colaborador c WHERE c.profissao = :profissao") })
 public class Colaborador implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nome")
-    private String nome;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "email")
-    private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "celular")
-    private String celular;
-    @Column(name = "logradouro")
-    private String logradouro;
-    @Column(name = "numero")
-    private String numero;
-    @Column(name = "complemento")
-    private String complemento;
-    @Column(name = "bairro")
-    private String bairro;
-    @Column(name = "cep")
-    private String cep;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "senha")
-    private String senha;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "perfil")
-    private Character perfil;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "profissao")
-    private String profissao;
-    @OneToMany(mappedBy = "colaborador")
-    private List<Doacao> doacaoList;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "id")
+	private Integer id;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "nome")
+	private String nome;
+	// @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+	// message="E-mail inválido")//if the field contains email address consider
+	// using this annotation to enforce field validation
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "email")
+	private String email;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "celular")
+	private String celular;
+	@Column(name = "logradouro")
+	private String logradouro;
+	@Column(name = "numero")
+	private String numero;
+	@Column(name = "complemento")
+	private String complemento;
+	@Column(name = "bairro")
+	private String bairro;
+	@Column(name = "cep")
+	private String cep;
+	@Basic(optional = false)
+	@NotNull
+	@Size(min = 1, max = 100)
+	@Column(name = "senha")
+	private String senha;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "perfil")
+	private Character perfil;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "profissao")
+	private String profissao;
+	@Basic(optional = false)
+	@NotNull
+	@Column(name = "habilidade")
+	private String habilidade;
+	@OneToMany(mappedBy = "colaborador")
+	private List<Doacao> doacaoList;
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinTable(name = "colaboradores_permissoes", joinColumns = {
+			@JoinColumn(name = "colaborador_id") }, inverseJoinColumns = { @JoinColumn(name = "permissao_id") })
+	private Set<Permissao> permissoes = new HashSet<>();
 
-    public Colaborador() {
-    }
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinTable(name = "colaborador_grupo", joinColumns = {
+			@JoinColumn(name = "colaborador_id") }, inverseJoinColumns = { @JoinColumn(name = "grupo_id") })
+	private List<Grupo> grupos;
+	private Boolean ativo;
 
-    public Colaborador(Integer id) {
-        this.id = id;
-    }
+	@ManyToOne
+	@JoinColumn(name = "evento", referencedColumnName = "id")
+	private Evento evento;
 
-    public Colaborador(Integer id, String nome, String email, String celular, String senha, Character perfil, String profissao) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.celular = celular;
-        this.senha = senha;
-        this.perfil = perfil;
-        this.profissao = profissao;
-    }
+	public Colaborador() {
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public Colaborador(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Colaborador(Integer id, String nome, String email, String celular, String senha, String profissao) {
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.celular = celular;
+		this.senha = senha;
+		this.profissao = profissao;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public String getCelular() {
-        return celular;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getLogradouro() {
-        return logradouro;
-    }
+	public String getCelular() {
+		return celular;
+	}
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
 
-    public String getNumero() {
-        return numero;
-    }
+	public String getLogradouro() {
+		return logradouro;
+	}
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
 
-    public String getComplemento() {
-        return complemento;
-    }
+	public String getNumero() {
+		return numero;
+	}
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
 
-    public String getBairro() {
-        return bairro;
-    }
+	public String getComplemento() {
+		return complemento;
+	}
 
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
 
-    public String getCep() {
-        return cep;
-    }
+	public String getBairro() {
+		return bairro;
+	}
 
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
 
-    public String getSenha() {
-        return senha;
-    }
+	public String getCep() {
+		return cep;
+	}
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
 
-    public Character getPerfil() {
-        return perfil;
-    }
+	public String getSenha() {
+		return senha;
+	}
 
-    public void setPerfil(Character perfil) {
-        this.perfil = perfil;
-    }
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
-    public String getProfissao() {
-        return profissao;
-    }
+	public Character getPerfil() {
+		return perfil;
+	}
 
-    public void setProfissao(String profissao) {
-        this.profissao = profissao;
-    }
+	public void setPerfil(Character perfil) {
+		this.perfil = perfil;
+	}
 
-    @XmlTransient
-    public List<Doacao> getDoacaoList() {
-        return doacaoList;
-    }
+	public String getProfissao() {
+		return profissao;
+	}
 
-    public void setDoacaoList(List<Doacao> doacaoList) {
-        this.doacaoList = doacaoList;
-    }
+	public void setProfissao(String profissao) {
+		this.profissao = profissao;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	public String getHabilidade() {
+		return habilidade;
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Colaborador)) {
-            return false;
-        }
-        Colaborador other = (Colaborador) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	public void setHabilidade(String habilidade) {
+		this.habilidade = habilidade;
+	}
 
-    @Override
-    public String toString() {
-        return "br.org.centrocac.entidade.Colaborador[ id=" + id + " ]";
-    }
-    
+	@XmlTransient
+	public List<Doacao> getDoacaoList() {
+		return doacaoList;
+	}
+
+	public void setDoacaoList(List<Doacao> doacaoList) {
+		this.doacaoList = doacaoList;
+	}
+
+	public Set<Permissao> getPermissoes() {
+		return permissoes;
+	}
+
+	public void setPermissoes(Set<Permissao> permissoes) {
+		this.permissoes = permissoes;
+	}
+
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
+		result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
+		result = prime * result + ((celular == null) ? 0 : celular.hashCode());
+		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
+		result = prime * result + ((complemento == null) ? 0 : complemento.hashCode());
+		result = prime * result + ((doacaoList == null) ? 0 : doacaoList.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((evento == null) ? 0 : evento.hashCode());
+		result = prime * result + ((grupos == null) ? 0 : grupos.hashCode());
+		result = prime * result + ((habilidade == null) ? 0 : habilidade.hashCode());
+		result = prime * result + ((logradouro == null) ? 0 : logradouro.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
+		result = prime * result + ((perfil == null) ? 0 : perfil.hashCode());
+		result = prime * result + ((permissoes == null) ? 0 : permissoes.hashCode());
+		result = prime * result + ((profissao == null) ? 0 : profissao.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Colaborador)) {
+			return false;
+		}
+		Colaborador other = (Colaborador) obj;
+		if (ativo == null) {
+			if (other.ativo != null) {
+				return false;
+			}
+		} else if (!ativo.equals(other.ativo)) {
+			return false;
+		}
+		if (bairro == null) {
+			if (other.bairro != null) {
+				return false;
+			}
+		} else if (!bairro.equals(other.bairro)) {
+			return false;
+		}
+		if (celular == null) {
+			if (other.celular != null) {
+				return false;
+			}
+		} else if (!celular.equals(other.celular)) {
+			return false;
+		}
+		if (cep == null) {
+			if (other.cep != null) {
+				return false;
+			}
+		} else if (!cep.equals(other.cep)) {
+			return false;
+		}
+		if (complemento == null) {
+			if (other.complemento != null) {
+				return false;
+			}
+		} else if (!complemento.equals(other.complemento)) {
+			return false;
+		}
+		if (doacaoList == null) {
+			if (other.doacaoList != null) {
+				return false;
+			}
+		} else if (!doacaoList.equals(other.doacaoList)) {
+			return false;
+		}
+		if (email == null) {
+			if (other.email != null) {
+				return false;
+			}
+		} else if (!email.equals(other.email)) {
+			return false;
+		}
+		if (evento == null) {
+			if (other.evento != null) {
+				return false;
+			}
+		} else if (!evento.equals(other.evento)) {
+			return false;
+		}
+		if (grupos == null) {
+			if (other.grupos != null) {
+				return false;
+			}
+		} else if (!grupos.equals(other.grupos)) {
+			return false;
+		}
+		if (habilidade == null) {
+			if (other.habilidade != null) {
+				return false;
+			}
+		} else if (!habilidade.equals(other.habilidade)) {
+			return false;
+		}
+		if (logradouro == null) {
+			if (other.logradouro != null) {
+				return false;
+			}
+		} else if (!logradouro.equals(other.logradouro)) {
+			return false;
+		}
+		if (nome == null) {
+			if (other.nome != null) {
+				return false;
+			}
+		} else if (!nome.equals(other.nome)) {
+			return false;
+		}
+		if (numero == null) {
+			if (other.numero != null) {
+				return false;
+			}
+		} else if (!numero.equals(other.numero)) {
+			return false;
+		}
+		if (permissoes == null) {
+			if (other.permissoes != null) {
+				return false;
+			}
+		} else if (!permissoes.equals(other.permissoes)) {
+			return false;
+		}
+		if (profissao == null) {
+			if (other.profissao != null) {
+				return false;
+			}
+		} else if (!profissao.equals(other.profissao)) {
+			return false;
+		}
+		if (senha == null) {
+			if (other.senha != null) {
+				return false;
+			}
+		} else if (!senha.equals(other.senha)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "br.org.centrocac.entidade.Colaborador[ id=" + id + " ]";
+	}
+
 }
