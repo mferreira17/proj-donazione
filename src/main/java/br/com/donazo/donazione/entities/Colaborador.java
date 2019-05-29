@@ -104,10 +104,12 @@ public class Colaborador implements Serializable {
 	private List<Grupo> grupos;
 	private Boolean ativo;
 
-	@ManyToOne
-	@JoinColumn(name = "evento", referencedColumnName = "id")
-	private Evento evento;
-
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "evento", referencedColumnName = "id") private Evento
+	 * evento;
+	 */
 	public Colaborador() {
 	}
 
@@ -245,14 +247,11 @@ public class Colaborador implements Serializable {
 		this.permissoes = permissoes;
 	}
 
-	public Evento getEvento() {
-		return evento;
-	}
-
-	public void setEvento(Evento evento) {
-		this.evento = evento;
-	}
-
+	/*
+	 * public Evento getEvento() { return evento; }
+	 * 
+	 * public void setEvento(Evento evento) { this.evento = evento; }
+	 */
 	public Boolean getAtivo() {
 		return ativo;
 	}
@@ -280,7 +279,7 @@ public class Colaborador implements Serializable {
 		result = prime * result + ((complemento == null) ? 0 : complemento.hashCode());
 		result = prime * result + ((doacaoList == null) ? 0 : doacaoList.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((evento == null) ? 0 : evento.hashCode());
+	//	result = prime * result + ((evento == null) ? 0 : evento.hashCode());
 		result = prime * result + ((grupos == null) ? 0 : grupos.hashCode());
 		result = prime * result + ((habilidade == null) ? 0 : habilidade.hashCode());
 		result = prime * result + ((logradouro == null) ? 0 : logradouro.hashCode());
@@ -354,13 +353,10 @@ public class Colaborador implements Serializable {
 		} else if (!email.equals(other.email)) {
 			return false;
 		}
-		if (evento == null) {
-			if (other.evento != null) {
-				return false;
-			}
-		} else if (!evento.equals(other.evento)) {
-			return false;
-		}
+		/*
+		 * if (evento == null) { if (other.evento != null) { return false; } } else if
+		 * (!evento.equals(other.evento)) { return false; }
+		 */
 		if (grupos == null) {
 			if (other.grupos != null) {
 				return false;
