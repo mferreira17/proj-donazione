@@ -29,7 +29,7 @@ public class CrudUtils {
 		}
 		entidade.setPermissoes(permissoesPerfil(entidade));
 
-		if (registroDuplicado(entidade)) {
+		if (isColaborador(entidade)) {
 			MessagesUtil.criarMensagemDeErro("Colaborador já cadastrado!");
 		} else {
 			try {
@@ -62,7 +62,7 @@ public class CrudUtils {
 		return permissoes;
 	}
 
-	public Boolean registroDuplicado(Colaborador entidade) {
+	public Boolean isColaborador(Colaborador entidade) {
 		Colaborador registro = colaboradorRepository.findByEmail(entidade.getEmail());
 		if (registro != null) {
 			return true;
