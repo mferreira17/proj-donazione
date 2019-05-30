@@ -14,4 +14,6 @@ public interface ColaboradorRepository extends CrudRepository<Colaborador, Integ
 	
 	@Query(value = "SELECT profissao FROM Colaborador GROUP BY profissao")
 	List<String> findAllByProfissao();
+	
+	List<Colaborador> findAllByNomeLike(String nome);
 }

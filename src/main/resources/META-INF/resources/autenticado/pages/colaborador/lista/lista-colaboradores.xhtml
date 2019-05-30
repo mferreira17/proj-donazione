@@ -44,6 +44,13 @@
 									styleClass="btn-primary" />
 							</div>
 
+							<p:inputText value="#{colaboradorBean.colaborador.nome}"
+								placeholder="Informe um nome para pesquisar" />
+							<p:separator />
+							<p:commandButton value="Pesquisar" update="tableId"
+								process="@form" styleClass="btn-primary"
+								action="#{colaboradorBean.pesquisarColaboradores}" />
+
 							<div class="ui-g-12">
 
 								<p:dataTable reflow="true" id="tableId" var="registro"
@@ -72,18 +79,20 @@
 									</p:column>
 									<p:column headerText="Operações" exportable="false">
 										<p:column>
-										<p:commandButton icon="fa fa-pencil-square" title="Editar"
-											styleClass="btn-primary" process="@this" style="width:49%;"
-											update="@(.ui-dialog)" oncomplete="PF('dialog').show()">
-											<f:setPropertyActionListener
-												target="#{colaboradorBean.colaborador }" value="#{registro}" />
-										</p:commandButton>
+											<p:commandButton icon="fa fa-pencil-square" title="Editar"
+												styleClass="btn-primary" process="@this" style="width:49%;"
+												update="@(.ui-dialog)" oncomplete="PF('dialog').show()">
+												<f:setPropertyActionListener
+													target="#{colaboradorBean.colaborador }"
+													value="#{registro}" />
+											</p:commandButton>
 										</p:column>
-										
+
 										<p:column>
 
 											<p:commandButton icon="fa fa-trash" process="@this"
-												update="@form" title="Excluir" styleClass="btn-fatal" style="width:49%;"
+												update="@form" title="Excluir" styleClass="btn-fatal"
+												style="width:49%;"
 												action="#{colaboradorBean.gravarExcluir() }">
 
 												<f:param value="#{registro.id}" name="colaborador" />
@@ -195,7 +204,8 @@
 							onclick="PF('dialog').hide()" process="@this" icon="fa fa-reply" />
 					</div>
 
-					<p:splitButton value="Salvar" action="#{colaboradorBean.gravarAlterar() }"
+					<p:splitButton value="Salvar"
+						action="#{colaboradorBean.gravarAlterar() }"
 						oncomplete="PF('dialog').hide()" icon="fa fa-check"
 						styleClass="hidden-md hidden-lg btn-primary">
 						<p:separator />

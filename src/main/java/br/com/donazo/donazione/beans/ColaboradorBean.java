@@ -84,6 +84,10 @@ public class ColaboradorBean extends CrudUtils implements Serializable {
 		this.init();
 	}
 
+	public void pesquisarColaboradores() {
+		colaboradores = colaboradorRepository.findAllByNomeLike(colaborador.getNome());
+	}
+
 	/**
 	 * @return the colaborador
 	 */
