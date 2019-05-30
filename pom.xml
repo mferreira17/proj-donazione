@@ -69,6 +69,11 @@
 			<groupId>org.joinfaces</groupId>
 			<artifactId>security-spring-boot-starter</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.joinfaces</groupId>
+			<artifactId>omnifaces3-spring-boot-starter</artifactId>
+		</dependency>
 
 		<!-- Mysql -->
 		<dependency>

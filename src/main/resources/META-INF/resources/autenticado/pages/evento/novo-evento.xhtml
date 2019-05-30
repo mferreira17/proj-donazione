@@ -4,6 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:adm="http://github.com/adminfaces"
+	xmlns:o="http://omnifaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 
 	<ui:define name="title-page">
@@ -63,19 +64,43 @@
 									placeholder="Insira a carga horária em minutos" minValue="1"
 									type="number" value="#{eventoBean.evento.cargaHoraria}" />
 
-								<p:outputLabel value="Colaboradores a serem convocados" for="profissoes" />
+								<p:outputLabel value="Colaboradores a serem convocados"
+									for="profissoes" />
 								<p:autoComplete id="profissoes" multiple="true"
 									value="#{eventoBean.profissoes}"
 									placeholder="Entre com as profissões"
 									completeMethod="#{eventoBean.completeProfissao}"
 									var="profissao" itemLabel="#{profissao}"
-									itemValue="#{profissao}"
-									forceSelection="true">
+									itemValue="#{profissao}" forceSelection="true">
 									<p:column>
 										<h:outputText value="#{profissao}" />
 									</p:column>
 								</p:autoComplete>
 							</p:panelGrid>
+
+
+							<p:accordionPanel dynamic="false">
+								<p:tab title="Colaboradores Selecionados">
+									<p:panelGrid columns="1" layout="grid">
+
+										<p:outputLabel
+											value="Selecione os colaboradores para o Evento.:" />
+
+										<p:pickList id="coladoradoresList" filterMatchMode="contains"
+											showSourceFilter="true" showTargetFilter="true"
+											responsive="true" value="#{eventoBean.dualListColaboradores}"
+											var="colab" itemLabel="#{colab.nome}" itemValue="#{colab}">
+
+											<o:converter converterId="omnifaces.ListConverter"
+												list="#{eventoBean.dualListColaboradores.source}" />
+
+										</p:pickList>
+
+									</p:panelGrid>
+								</p:tab>
+							</p:accordionPanel>
+
+
 						</div>
 					</div>
 
@@ -86,8 +111,8 @@
 							styleClass="btn-primary" />
 
 						<p:commandButton value="Voltar" immediate="true"
-							action="/autenticado/pages/evento/lista/lista-eventos.xhtml?faces-redirect=true" process="@this"
-							icon="fa fa-reply " />
+							action="/autenticado/pages/evento/lista/lista-eventos.xhtml?faces-redirect=true"
+							process="@this" icon="fa fa-reply " />
 					</div>
 
 					<p:splitButton value="Salvar"
@@ -96,8 +121,8 @@
 
 						<p:separator />
 						<p:menuitem value="Voltar"
-							action="/autenticado/pages/evento/lista/lista-eventos.xhtml?faces-redirect=true" process="@this"
-							icon="fa fa-reply " />
+							action="/autenticado/pages/evento/lista/lista-eventos.xhtml?faces-redirect=true"
+							process="@this" icon="fa fa-reply " />
 					</p:splitButton>
 
 				</div>
