@@ -79,8 +79,8 @@ public class Evento implements Serializable {
 	@Column(name = "profissoesConvocadas")
 	private String profissoesConvocadas;
 
-	@OneToMany(mappedBy = "evento")
-	private Set<Colaborador> colaboradorList = new HashSet<>();
+	@OneToMany
+	private Set<Colaborador> colaboradores = new HashSet<>();
 
 	public Evento() {
 	}
@@ -156,11 +156,11 @@ public class Evento implements Serializable {
 	}
 
 	public Set<Colaborador> getColaboradorList() {
-		return colaboradorList;
+		return colaboradores;
 	}
 
 	public void setColaboradorList(Set<Colaborador> colaboradorList) {
-		this.colaboradorList = colaboradorList;
+		this.colaboradores = colaboradorList;
 	}
 
 	public String getProfissoesConvocadas() {

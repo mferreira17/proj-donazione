@@ -2,16 +2,19 @@ package br.com.donazo.donazione.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import org.primefaces.event.CloseEvent;
+import org.primefaces.model.DualListModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.donazo.donazione.entities.Colaborador;
@@ -41,6 +44,8 @@ public class EventoBean implements Serializable {
 	private EventoRepository eventoRepository;
 	@Autowired
 	private ColaboradorRepository colaboradorRepository;
+	
+	private DualListModel<Colaborador> dualListColaboradores;
 
 	@PostConstruct
 	public void init() {
@@ -48,12 +53,17 @@ public class EventoBean implements Serializable {
 		this.prepaprar();
 		colaboradores = colaboradorRepository.findAll();
 		this.eventos = this.eventoRepository.findAll();
+		
+		dualListColaboradores = new DualListModel((List<Colaborador>) colaboradores, new ArrayList<>());
+		
 	}
 
 	public void gravarInserir() {
 
 		try {
 			getEvento().setProfissoesConvocadas(listaProfissoes(getProfissoes()));
+			Set<Colaborador> colaboradores = dualListColaboradores.getTarget().stream().collect(Collectors.toSet());
+			getEvento().setColaboradorList(colaboradores);
 			this.eventoRepository.save(this.getEvento());
 			MessagesUtil.criarMensagemDeInformacao("Evento " + this.getEvento().getNome() + "  salvo.");
 			this.limpar();
@@ -134,6 +144,8 @@ public class EventoBean implements Serializable {
 		profissoes = new ArrayList<>();
 		this.getEvento().setCargaHoraria(1);
 		this.getEvento().setCadastro(new Date());
+		dualListColaboradores = new DualListModel((List<Colaborador>) colaboradores, new ArrayList<>());
+
 
 	}
 
@@ -180,6 +192,14 @@ public class EventoBean implements Serializable {
 
 	public void setOperacao(boolean operacao) {
 		this.operacao = operacao;
+	}
+
+	public DualListModel<Colaborador> getDualListColaboradores() {
+		return dualListColaboradores;
+	}
+
+	public void setDualListColaboradores(DualListModel<Colaborador> dualListColaboradores) {
+		this.dualListColaboradores = dualListColaboradores;
 	}
 
 }

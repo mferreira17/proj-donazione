@@ -8,13 +8,13 @@
 	<ul class="nav navbar-nav">
 		<li class="dropdown user user-menu"><a href="#"
 			class="dropdown-toggle" data-toggle="dropdown"> <pe:gravatar
-					id="userImage" value="mm" /> <span class="hidden-xs"><p:outputLabel
+					id="userImage" value="#{usuarioBean.colaboradorLogado.email}" notFound="default"  /> <span class="hidden-xs"><p:outputLabel
 						value="#{usuarioBean.colaboradorLogado.nome}" /></span>
 		</a>
 			<ul class="dropdown-menu">
 				<li class="user-header">
 					<div class="hidden-xs">
-						<pe:gravatar style="border-radius: 50%" value="mm" />
+						<pe:gravatar style="border-radius: 50%" value="#{usuarioBean.colaboradorLogado.email}" notFound="default" />
 					</div>
 					<p>
 						<h:outputText value="#{usuarioBean.colaboradorLogado.email}" />
