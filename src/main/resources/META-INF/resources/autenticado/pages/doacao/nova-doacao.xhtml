@@ -21,6 +21,7 @@
 
 	<ui:define name="metadata">
 		<f:metadata>
+			<f:viewAction action="#{campanhaBean.init()}" />
 			<f:viewAction action="#{doacaoBean.initNovaDoacao()}" />
 		</f:metadata>
 	</ui:define>
@@ -37,16 +38,70 @@
 
 					<div class="ui-g ui-fluid">
 						<div class="ui-g-12">
-							<p:panelGrid layout="grid" columns="2"
-								columnClasses="ui-grid-col-1,ui-grid-col-11">
-								<p:outputLabel value="Valor a ser doado" for="valor"/>
+							<p:panelGrid layout="grid" columns="1"
+								columnClasses="ui-grid-col-12">
 								<h:panelGroup>
-									<div class="form-group ui-inputgroup">
-										<span class="ui-inputgroup-addon">$</span>
-										<p:inputText styleClass="form-control" type="number"
-											value="#{doacaoBean.doacao.total}" id="valor"
-											placeholder="Entre com o valor da doação" name="doacao" required="true" />
-									</div>
+									<h:panelGroup>
+										<div class="form-group has-feedback">
+											<p:inputText type="text"
+												value="#{doacaoBean.doacao.colaborador.nome}"
+												placeholder="Nome" required="true" id="Nome"
+												requiredMessage="Nome é obrigatório." />
+											<i class="fa fa-user-circle form-control-feedback"></i>
+										</div>
+									</h:panelGroup>
+
+									<h:panelGroup>
+										<div class="form-group has-feedback">
+											<p:inputText type="email"
+												value="#{doacaoBean.doacao.colaborador.email}" id="Email"
+												placeholder="Email" required="true"
+												requiredMessage="Email é obrigatório." />
+											<i class="fa fa-envelope form-control-feedback"></i>
+										</div>
+									</h:panelGroup>
+
+									<h:panelGroup>
+										<div class="form-group has-feedback">
+											<p:inputMask mask="(99) 99999-9999" autoClear="false"
+												maxlength="11" id="Celular"
+												value="#{doacaoBean.doacao.colaborador.celular}"
+												requiredMessage="Celular é obrigatório" placeholder="Celula"
+												required="true" />
+											<i class="fa fa-mobile form-control-feedback"></i>
+										</div>
+									</h:panelGroup>
+									<h:panelGroup>
+										<div class="form-group has-feedback ui-inputgroup">
+											<p:outputLabel
+												value="Esta doação é direcionada a uma campanha?" />
+											<p:inputSwitch value="#{doacaoBean.doacaoParaCampanha}">
+												<p:ajax update="@form" />
+											</p:inputSwitch>
+										</div>
+									</h:panelGroup>
+									<h:panelGroup
+										rendered="#{doacaoBean.doacaoParaCampanha eq true}">
+										<p:selectOneMenu id="select-campanha"
+											value="#{doacaoBean.doacao.campanha }">
+											<f:selectItem itemLabel="Selecione"
+												noSelectionOption="true" />
+											<f:selectItems value="#{campanhaBean.campanhas}"
+												var="regitro" itemLabel="#{regitro.nome}"
+												itemValue="#{regitro}" /> />
+										</p:selectOneMenu>
+									</h:panelGroup>
+									<p:spacer height="10" />
+									<h:panelGroup>
+										<div class="form-group has-feedback ui-inputgroup">
+											<span class="ui-inputgroup-addon">$</span>
+											<p:inputNumber decimalSeparator="," minValue="1"
+												thousandSeparator="." symbol="R$ " decimalPlaces="2"
+												value="#{doacaoBean.doacao.total}" id="valor"
+												placeholder="Entre com o valor da doação" name="doacao"
+												required="true" />
+										</div>
+									</h:panelGroup>
 								</h:panelGroup>
 							</p:panelGrid>
 						</div>
@@ -63,8 +118,9 @@
 					</div>
 
 					<p:splitButton value="Salvar" icon="fa fa-check"
-						action="#{doacaoBean.gravarInserir()}"
+						action="#{doacaoBean.gravarInserir()}" ajax="false"
 						styleClass="hidden-md hidden-lg btn-primary">
+						<f:ajax update="@form" />
 						<p:separator />
 						<p:menuitem value="Voltar"
 							action="/autenticado/pages/doacao/lista/lista-doacoes.xhtml?faces-redirect=true"

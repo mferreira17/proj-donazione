@@ -15,194 +15,202 @@ import java.util.Set;
 @Component
 public class Campanha implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
 
-    @NotBlank(message = "Nome não pode ser vazio")
-    @Column(name = "nome", nullable = false)
-    private String nome;
+	@NotBlank(message = "Nome não pode ser vazio")
+	@Column(name = "nome", nullable = false)
+	private String nome;
 
-    @Column(name = "descricao")
-    private String descricao;
+	@Column(name = "descricao")
+	private String descricao;
 
-    @NotNull(message="Data de início não pode ser vazio")
-    @Column(name = "data_inicio", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date cadastro;
+	@NotNull(message = "Data de início não pode ser vazio")
+	@Column(name = "data_inicio", nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date cadastro;
 
-    @Column(name = "habilitada", nullable = false)
-    private boolean habilitada;
+	@Column(name = "habilitada", nullable = false)
+	private boolean habilitada;
 
-    @NotNull(message="Data de Término não pode ser vazio")
-    @Column(name = "data_fim")
-    @Temporal(TemporalType.DATE)
-    private Date dataFim;
+	@NotNull(message = "Data de Término não pode ser vazio")
+	@Column(name = "data_fim")
+	@Temporal(TemporalType.DATE)
+	private Date dataFim;
 
-    /*@Basic(optional = false)
-    @NotNull
-    @Column(name = "meta")
-    private BigDecimal meta;*/
+	/*
+	 * @Basic(optional = false)
+	 * 
+	 * @NotNull
+	 * 
+	 * @Column(name = "meta") private BigDecimal meta;
+	 */
 
-    /*@Basic(optional = false)
-    @NotNull
-    @Column(name = "doacaoMinima")
-    private BigDecimal doacaoMinima;*/
+	/*
+	 * @Basic(optional = false)
+	 * 
+	 * @NotNull
+	 * 
+	 * @Column(name = "doacaoMinima") private BigDecimal doacaoMinima;
+	 */
 
-    /*@Basic(optional = false)
-    @NotNull
-    @Column(name = "arrecadado")
-    private BigDecimal arrecadado;*/
+	/*
+	 * @Basic(optional = false)
+	 * 
+	 * @NotNull
+	 * 
+	 * @Column(name = "arrecadado") private BigDecimal arrecadado;
+	 */
 
-    @OneToMany(mappedBy = "campanha")
-    private Set<ItemDoacao> itemDoacaoList = new HashSet<>();
+	@OneToMany(mappedBy = "campanha")
+	private Set<ItemDoacao> itemDoacaoList = new HashSet<>();
 
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "campanha")
-    private List<ItemCampanha> itemCampanhaList;*/
+	@OneToMany(mappedBy = "campanha")
+	private Set<Doacao> doacaos = new HashSet<>();
 
-    public Campanha() {
+	/*
+	 * @OneToMany(cascade = CascadeType.ALL, mappedBy = "campanha") private
+	 * List<ItemCampanha> itemCampanhaList;
+	 */
 
-    }
-   
-/*    public Campanha(Integer id) {
-        this.id = id;
-    }*/
+	public Campanha() {
 
-/*
-    public Campanha(Integer id, String nome, String descricao, Date cadastro, boolean habilitada, Date dataFim, BigDecimal meta, BigDecimal doacaoMinima, BigDecimal arrecadado) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.cadastro = cadastro;
-        this.habilitada = habilitada;
-        this.dataFim = dataFim;
-    }
-*/
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	/*
+	 * public Campanha(Integer id) { this.id = id; }
+	 */
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	/*
+	 * public Campanha(Integer id, String nome, String descricao, Date cadastro,
+	 * boolean habilitada, Date dataFim, BigDecimal meta, BigDecimal doacaoMinima,
+	 * BigDecimal arrecadado) { this.id = id; this.nome = nome; this.descricao =
+	 * descricao; this.cadastro = cadastro; this.habilitada = habilitada;
+	 * this.dataFim = dataFim; }
+	 */
 
-    public String getNome() {
-        return nome;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public Date getCadastro() {
-        return cadastro;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public void setCadastro(Date cadastro) {
-        this.cadastro = cadastro;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public boolean getHabilitada() {
-        return habilitada;
-    }
+	public Date getCadastro() {
+		return cadastro;
+	}
 
-    public void setHabilitada(boolean habilitada) {
-        this.habilitada = habilitada;
-    }
+	public void setCadastro(Date cadastro) {
+		this.cadastro = cadastro;
+	}
 
-    public Date getDataFim() {
-        return dataFim;
-    }
+	public boolean getHabilitada() {
+		return habilitada;
+	}
 
-    public void setDataFim(Date dataFim) {
-        this.dataFim = dataFim;
-    }
+	public void setHabilitada(boolean habilitada) {
+		this.habilitada = habilitada;
+	}
 
-/*
-    public BigDecimal getMeta() {
-        return meta;
-    }
+	public Date getDataFim() {
+		return dataFim;
+	}
 
-    public void setMeta(BigDecimal meta) {
-        this.meta = meta;
-    }
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
 
-    public BigDecimal getDoacaoMinima() {
-        return doacaoMinima;
-    }
+	/*
+	 * public BigDecimal getMeta() { return meta; }
+	 * 
+	 * public void setMeta(BigDecimal meta) { this.meta = meta; }
+	 * 
+	 * public BigDecimal getDoacaoMinima() { return doacaoMinima; }
+	 * 
+	 * public void setDoacaoMinima(BigDecimal doacaoMinima) { this.doacaoMinima =
+	 * doacaoMinima; }
+	 * 
+	 * public BigDecimal getArrecadado() { return arrecadado; }
+	 * 
+	 * public void setArrecadado(BigDecimal arrecadado) { this.arrecadado =
+	 * arrecadado; }
+	 */
 
-    public void setDoacaoMinima(BigDecimal doacaoMinima) {
-        this.doacaoMinima = doacaoMinima;
-    }
+	public Set<ItemDoacao> getItemDoacaoList() {
+		return itemDoacaoList;
+	}
 
-    public BigDecimal getArrecadado() {
-        return arrecadado;
-    }
+	public void setItemDoacaoList(Set<ItemDoacao> itemDoacaoList) {
+		this.itemDoacaoList = itemDoacaoList;
+	}
 
-    public void setArrecadado(BigDecimal arrecadado) {
-        this.arrecadado = arrecadado;
-    }
-*/
+	/*
+	 * @XmlTransient public List<ItemCampanha> getItemCampanhaList() { return
+	 * itemCampanhaList; }
+	 * 
+	 * public void setItemCampanhaList(List<ItemCampanha> itemCampanhaList) {
+	 * this.itemCampanhaList = itemCampanhaList; }
+	 */
 
-    public Set<ItemDoacao> getItemDoacaoList() {
-        return itemDoacaoList;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
 
-    public void setItemDoacaoList(Set<ItemDoacao> itemDoacaoList) {
-        this.itemDoacaoList = itemDoacaoList;
-    }
+	public Set<Doacao> getDoacaos() {
+		return doacaos;
+	}
 
-    /*@XmlTransient
-    public List<ItemCampanha> getItemCampanhaList() {
-        return itemCampanhaList;
-    }
+	public void setDoacaos(Set<Doacao> doacaos) {
+		this.doacaos = doacaos;
+	}
 
-    public void setItemCampanhaList(List<ItemCampanha> itemCampanhaList) {
-        this.itemCampanhaList = itemCampanhaList;
-    }*/
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof Campanha)) {
+			return false;
+		}
+		Campanha other = (Campanha) object;
+		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+			return false;
+		}
+		return true;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	@Override
+	public String toString() {
+		return "br.org.centrocac.entidade.Campanha[ id=" + id + " ]";
+	}
 
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof Campanha)) {
-            return false;
-        }
-        Campanha other = (Campanha) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+	public void addItemDoacao(ItemDoacao itemDoacao) {
+		this.itemDoacaoList.add(itemDoacao);
+	}
 
-    @Override
-    public String toString() {
-        return "br.org.centrocac.entidade.Campanha[ id=" + id + " ]";
-    }
+	public void addItemDoacao(List<ItemDoacao> itensDoacao) {
+		this.itemDoacaoList.addAll(itensDoacao);
+	}
 
-    public void addItemDoacao(ItemDoacao itemDoacao){
-        this.itemDoacaoList.add(itemDoacao);
-    }
-
-    public void addItemDoacao(List<ItemDoacao> itensDoacao){
-        this.itemDoacaoList.addAll(itensDoacao);
-    }
-    
 }

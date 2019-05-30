@@ -49,9 +49,14 @@ public class Doacao implements Serializable {
     @NotNull
     @Column(name = "total")
     private BigDecimal total;
-    @JoinColumn(name = "colaborador", referencedColumnName = "id")
     @ManyToOne
+    @JoinColumn(name = "colaborador", referencedColumnName = "id", nullable = false)
     private Colaborador colaborador;
+    
+    @ManyToOne
+    @JoinColumn(name = "campanha", referencedColumnName = "id")
+    private Campanha campanha;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "doacao")
     private List<ItemDoacao> itemDoacaoList;
 
@@ -109,7 +114,15 @@ public class Doacao implements Serializable {
         this.itemDoacaoList = itemDoacaoList;
     }
 
-    @Override
+    public Campanha getCampanha() {
+		return campanha;
+	}
+
+	public void setCampanha(Campanha campanha) {
+		this.campanha = campanha;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

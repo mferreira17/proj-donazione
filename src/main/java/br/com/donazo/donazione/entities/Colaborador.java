@@ -23,7 +23,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "colaborador")
@@ -46,50 +45,43 @@ public class Colaborador implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
-	@Column(name = "id")
+	@Column(name = "id", nullable = false)
 	private Integer id;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "nome")
+	@Column(name = "nome", nullable = false)
 	private String nome;
 	// @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
 	// message="E-mail inválido")//if the field contains email address consider
 	// using this annotation to enforce field validation
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "email")
+	@Column(name = "email", nullable = false)
 	private String email;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "celular")
+	@Column(name = "celular", nullable = false)
 	private String celular;
-	@Column(name = "logradouro")
+	@Column(name = "logradouro", nullable = true)
 	private String logradouro;
-	@Column(name = "numero")
+	@Column(name = "numero", nullable = true)
 	private String numero;
-	@Column(name = "complemento")
+	@Column(name = "complemento", nullable = true)
 	private String complemento;
-	@Column(name = "bairro")
+	@Column(name = "bairro", nullable = true)
 	private String bairro;
-	@Column(name = "cep")
+	@Column(name = "cep", nullable = true)
 	private String cep;
-	@Basic(optional = false)
-	@NotNull
 	@Size(min = 1, max = 100)
-	@Column(name = "senha")
+	@Column(name = "senha", nullable = true)
 	private String senha;
 	@Basic(optional = false)
 	@NotNull
-	@Column(name = "perfil")
+	@Column(name = "perfil", nullable = false)
 	private Character perfil;
-	@Basic(optional = false)
-	@NotNull
-	@Column(name = "profissao")
+	@Column(name = "profissao", nullable = true)
 	private String profissao;
-	@Basic(optional = false)
-	@NotNull
-	@Column(name = "habilidade")
+	@Column(name = "habilidade", nullable = true)
 	private String habilidade;
 	@OneToMany(mappedBy = "colaborador")
 	private List<Doacao> doacaoList;
@@ -102,10 +94,11 @@ public class Colaborador implements Serializable {
 	@JoinTable(name = "colaborador_grupo", joinColumns = {
 			@JoinColumn(name = "colaborador_id") }, inverseJoinColumns = { @JoinColumn(name = "grupo_id") })
 	private List<Grupo> grupos;
+	@Column(name = "ativo", nullable = false)
 	private Boolean ativo;
 
 	@ManyToOne
-	@JoinColumn(name = "evento", referencedColumnName = "id")
+	@JoinColumn(name = "evento")
 	private Evento evento;
 
 	public Colaborador() {
@@ -228,7 +221,6 @@ public class Colaborador implements Serializable {
 		this.habilidade = habilidade;
 	}
 
-	@XmlTransient
 	public List<Doacao> getDoacaoList() {
 		return doacaoList;
 	}
@@ -245,12 +237,12 @@ public class Colaborador implements Serializable {
 		this.permissoes = permissoes;
 	}
 
-	public Evento getEvento() {
-		return evento;
+	public List<Grupo> getGrupos() {
+		return grupos;
 	}
 
-	public void setEvento(Evento evento) {
-		this.evento = evento;
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 
 	public Boolean getAtivo() {
@@ -261,12 +253,12 @@ public class Colaborador implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public List<Grupo> getGrupos() {
-		return grupos;
+	public Evento getEvento() {
+		return evento;
 	}
 
-	public void setGrupos(List<Grupo> grupos) {
-		this.grupos = grupos;
+	public void setEvento(Evento evento) {
+		this.evento = evento;
 	}
 
 	@Override
@@ -283,6 +275,7 @@ public class Colaborador implements Serializable {
 		result = prime * result + ((evento == null) ? 0 : evento.hashCode());
 		result = prime * result + ((grupos == null) ? 0 : grupos.hashCode());
 		result = prime * result + ((habilidade == null) ? 0 : habilidade.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((logradouro == null) ? 0 : logradouro.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
@@ -295,134 +288,104 @@ public class Colaborador implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (!(obj instanceof Colaborador)) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Colaborador other = (Colaborador) obj;
 		if (ativo == null) {
-			if (other.ativo != null) {
+			if (other.ativo != null)
 				return false;
-			}
-		} else if (!ativo.equals(other.ativo)) {
+		} else if (!ativo.equals(other.ativo))
 			return false;
-		}
 		if (bairro == null) {
-			if (other.bairro != null) {
+			if (other.bairro != null)
 				return false;
-			}
-		} else if (!bairro.equals(other.bairro)) {
+		} else if (!bairro.equals(other.bairro))
 			return false;
-		}
 		if (celular == null) {
-			if (other.celular != null) {
+			if (other.celular != null)
 				return false;
-			}
-		} else if (!celular.equals(other.celular)) {
+		} else if (!celular.equals(other.celular))
 			return false;
-		}
 		if (cep == null) {
-			if (other.cep != null) {
+			if (other.cep != null)
 				return false;
-			}
-		} else if (!cep.equals(other.cep)) {
+		} else if (!cep.equals(other.cep))
 			return false;
-		}
 		if (complemento == null) {
-			if (other.complemento != null) {
+			if (other.complemento != null)
 				return false;
-			}
-		} else if (!complemento.equals(other.complemento)) {
+		} else if (!complemento.equals(other.complemento))
 			return false;
-		}
 		if (doacaoList == null) {
-			if (other.doacaoList != null) {
+			if (other.doacaoList != null)
 				return false;
-			}
-		} else if (!doacaoList.equals(other.doacaoList)) {
+		} else if (!doacaoList.equals(other.doacaoList))
 			return false;
-		}
 		if (email == null) {
-			if (other.email != null) {
+			if (other.email != null)
 				return false;
-			}
-		} else if (!email.equals(other.email)) {
+		} else if (!email.equals(other.email))
 			return false;
-		}
 		if (evento == null) {
-			if (other.evento != null) {
+			if (other.evento != null)
 				return false;
-			}
-		} else if (!evento.equals(other.evento)) {
+		} else if (!evento.equals(other.evento))
 			return false;
-		}
 		if (grupos == null) {
-			if (other.grupos != null) {
+			if (other.grupos != null)
 				return false;
-			}
-		} else if (!grupos.equals(other.grupos)) {
+		} else if (!grupos.equals(other.grupos))
 			return false;
-		}
 		if (habilidade == null) {
-			if (other.habilidade != null) {
+			if (other.habilidade != null)
 				return false;
-			}
-		} else if (!habilidade.equals(other.habilidade)) {
+		} else if (!habilidade.equals(other.habilidade))
 			return false;
-		}
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (logradouro == null) {
-			if (other.logradouro != null) {
+			if (other.logradouro != null)
 				return false;
-			}
-		} else if (!logradouro.equals(other.logradouro)) {
+		} else if (!logradouro.equals(other.logradouro))
 			return false;
-		}
 		if (nome == null) {
-			if (other.nome != null) {
+			if (other.nome != null)
 				return false;
-			}
-		} else if (!nome.equals(other.nome)) {
+		} else if (!nome.equals(other.nome))
 			return false;
-		}
 		if (numero == null) {
-			if (other.numero != null) {
+			if (other.numero != null)
 				return false;
-			}
-		} else if (!numero.equals(other.numero)) {
+		} else if (!numero.equals(other.numero))
 			return false;
-		}
+		if (perfil == null) {
+			if (other.perfil != null)
+				return false;
+		} else if (!perfil.equals(other.perfil))
+			return false;
 		if (permissoes == null) {
-			if (other.permissoes != null) {
+			if (other.permissoes != null)
 				return false;
-			}
-		} else if (!permissoes.equals(other.permissoes)) {
+		} else if (!permissoes.equals(other.permissoes))
 			return false;
-		}
 		if (profissao == null) {
-			if (other.profissao != null) {
+			if (other.profissao != null)
 				return false;
-			}
-		} else if (!profissao.equals(other.profissao)) {
+		} else if (!profissao.equals(other.profissao))
 			return false;
-		}
 		if (senha == null) {
-			if (other.senha != null) {
+			if (other.senha != null)
 				return false;
-			}
-		} else if (!senha.equals(other.senha)) {
+		} else if (!senha.equals(other.senha))
 			return false;
-		}
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "br.org.centrocac.entidade.Colaborador[ id=" + id + " ]";
-	}
-
+	
 }

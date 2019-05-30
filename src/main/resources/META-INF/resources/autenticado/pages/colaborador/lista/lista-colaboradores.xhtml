@@ -67,33 +67,31 @@
 									<p:column headerText="Endereço">
 										<p:outputLabel value="#{registro.logradouro }" />
 									</p:column>
-									<p:column headerText="Nº">
-										<p:outputLabel value="#{registro.numero }" />
-									</p:column>
 									<p:column headerText="Bairro">
 										<p:outputLabel value="#{registro.bairro }" />
 									</p:column>
-									<p:column headerText="CEP">
-										<p:outputLabel value="#{registro.cep }" />
-									</p:column>
-
 									<p:column headerText="Operações" exportable="false">
+										<p:column>
 										<p:commandButton icon="fa fa-pencil-square" title="Editar"
-											styleClass="btn-primary" process="@this"
+											styleClass="btn-primary" process="@this" style="width:49%;"
 											update="@(.ui-dialog)" oncomplete="PF('dialog').show()">
 											<f:setPropertyActionListener
 												target="#{colaboradorBean.colaborador }" value="#{registro}" />
 										</p:commandButton>
+										</p:column>
+										
+										<p:column>
 
-										<p:commandButton icon="fa fa-trash" process="@this"
-											update="@form" title="Excluir" styleClass="btn-fatal"
-											action="#{colaboradorBean.gravarExcluir() }">
+											<p:commandButton icon="fa fa-trash" process="@this"
+												update="@form" title="Excluir" styleClass="btn-fatal" style="width:49%;"
+												action="#{colaboradorBean.gravarExcluir() }">
 
-											<f:param value="#{registro.id}" name="colaborador" />
-											<p:confirm header="Confirmação"
-												message="Você tem certeza que deseja excluir o colaborador #{registro.nome} ?"
-												icon="fa fa-exclamation-triangle" />
-										</p:commandButton>
+												<f:param value="#{registro.id}" name="colaborador" />
+												<p:confirm header="Confirmação"
+													message="Você tem certeza que deseja excluir o colaborador #{registro.nome} ?"
+													icon="fa fa-exclamation-triangle" />
+											</p:commandButton>
+										</p:column>
 									</p:column>
 
 								</p:dataTable>

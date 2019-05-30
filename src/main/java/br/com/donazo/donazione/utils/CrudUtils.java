@@ -22,23 +22,34 @@ public class CrudUtils {
 
 	public void novoColaborador(Colaborador entidade) {
 
-		String senha = entidade.getSenha();
-		entidade.setSenha(new BCryptPasswordEncoder().encode(senha));
+		if (entidade.getSenha() != null) {
+			entidade.setSenha(new BCryptPasswordEncoder().encode(entidade.getSenha()));
+		}
 		if (entidade.getPerfil() == null) {
 			entidade.setPerfil(TipoPerfilUsuario.COLABORADOR.getValor());
 		}
 		entidade.setPermissoes(permissoesPerfil(entidade));
 
 		if (isColaborador(entidade)) {
-			MessagesUtil.criarMensagemDeErro("Colaborador já cadastrado!");
-		} else {
-			try {
-				this.colaboradorRepository.save(entidade);
-				MessagesUtil.criarMensagemDeInformacao("Colaborador " + entidade.getNome() + "  salvo.");
-				entidade = new Colaborador();
-			} catch (final Exception e) {
-				MessagesUtil.criarMensagemDeErro(e.getMessage());
+			if(entidade.getSenha() != null) {
+				MessagesUtil.criarMensagemDeErro("Email já cadastrado!");
+			} else {
+				gravarCadastro(entidade);
 			}
+		} else {
+			gravarCadastro(entidade);
+		}
+	}
+
+	private void gravarCadastro(Colaborador entidade) {
+		try {
+			this.colaboradorRepository.save(entidade);
+			if (entidade.getAtivo()) {
+				MessagesUtil.criarMensagemDeInformacao("Colaborador " + entidade.getNome() + "  salvo.");
+			}
+			entidade = new Colaborador();
+		} catch (final Exception e) {
+			MessagesUtil.criarMensagemDeErro(e.getMessage());
 		}
 	}
 

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.donazo.donazione.entities.Colaborador;
 import br.com.donazo.donazione.entities.Doacao;
-import br.com.donazo.donazione.entities.tipo.TipoPerfilUsuario;
 import br.com.donazo.donazione.repositorios.ColaboradorRepository;
 import br.com.donazo.donazione.repositorios.DoacaoRepository;
 import br.com.donazo.donazione.utils.CrudUtils;
@@ -26,6 +25,8 @@ public class DoacaoBean extends CrudUtils implements Serializable {
 
 	private Doacao doacao;
 
+	private Boolean doacaoParaCampanha = false;
+	
 	@Autowired
 	private UsuarioBean usuarioBean;
 
@@ -46,26 +47,27 @@ public class DoacaoBean extends CrudUtils implements Serializable {
 
 	public void initNovaDoacao() {
 
-		limpar();
-		if (usuarioBean.getColaboradorLogado() != null) {
-			doacao.setColaborador(usuarioBean.getColaboradorLogado());
-		} else {
-			doacao.setColaborador(new Colaborador());
-		}
+		doacao = new Doacao();
+//		if (usuarioBean.getColaboradorLogado() != null) {
+//			doacao.setColaborador(usuarioBean.getColaboradorLogado());
+//		} else {
+		doacao.setColaborador(new Colaborador());
+		doacao.getColaborador().setAtivo(false);
+		;
+//		}
 		doacao.setCadastro(new Date());
 	}
 
 	public void gravarInserir() {
-
+		String email = getDoacao().getColaborador().getEmail();
 		if (isColaborador(getDoacao().getColaborador())) {
 			realizarDoacao(getDoacao());
 		} else {
 			try {
-				if (getDoacao().getColaborador().getPerfil() == null) {
-					getDoacao().getColaborador().setPerfil(TipoPerfilUsuario.COLABORADOR.getValor());
-					getDoacao().getColaborador().setPermissoes(permissoesPerfil(getDoacao().getColaborador()));
-				}
-				this.colaboradorRepository.save(getDoacao().getColaborador());
+				novoColaborador(getDoacao().getColaborador());
+				// Esta sendo setado o email novamente, pois al cadastrar um novo colaborador o
+				// metodo da um new Colaborador();
+				getDoacao().getColaborador().setEmail(email);
 				realizarDoacao(getDoacao());
 			} catch (final Exception e) {
 				MessagesUtil.criarMensagemDeErro(e.getMessage());
@@ -79,14 +81,10 @@ public class DoacaoBean extends CrudUtils implements Serializable {
 		try {
 			doacaoRepository.save(entidade);
 			MessagesUtil.criarMensagemDeInformacao("Doação cadastrada.");
-			limpar();
+			doacao = new Doacao();
 		} catch (Exception e) {
 			MessagesUtil.criarMensagemDeErro(e.getMessage());
 		}
-	}
-
-	private void limpar() {
-		doacao = new Doacao();
 	}
 
 	public Iterable<Doacao> getDoacoes() {
@@ -103,6 +101,14 @@ public class DoacaoBean extends CrudUtils implements Serializable {
 
 	public void setDoacao(Doacao doacao) {
 		this.doacao = doacao;
+	}
+
+	public Boolean getDoacaoParaCampanha() {
+		return doacaoParaCampanha;
+	}
+
+	public void setDoacaoParaCampanha(Boolean doacaoParaCampanha) {
+		this.doacaoParaCampanha = doacaoParaCampanha;
 	}
 
 }
