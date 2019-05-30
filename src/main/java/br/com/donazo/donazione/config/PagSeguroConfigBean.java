@@ -9,7 +9,7 @@ import br.com.uol.pagseguro.api.PagSeguroEnv;
 import br.com.uol.pagseguro.api.credential.Credential;
 
 @Configuration
-public class PagSeguroBean {
+public class PagSeguroConfigBean {
 
 	@Value(value = "${pagseguro.email}")
 	private String email;

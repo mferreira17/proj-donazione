@@ -13,7 +13,7 @@ import br.com.uol.pagseguro.api.transaction.search.TransactionSummary;
 public class PagSeguroService {
 
 	private PagSeguro pagSeguro;
-	
+
 	public PagSeguroService(PagSeguro pagSeguro) {
 		this.pagSeguro = pagSeguro;
 	}
@@ -22,8 +22,8 @@ public class PagSeguroService {
 	public List<TransactionSummary> getPagamentosPorData(Date dataInicial, Date dataFinal) {
 		DateRangeBuilder builder = new DateRangeBuilder();
 		builder.between(dataInicial, dataFinal);
-		List<TransactionSummary> data = (List<TransactionSummary>) pagSeguro.transactions().search().byDateRange(builder, 1,
-				10).getData();
+		List<TransactionSummary> data = (List<TransactionSummary>) pagSeguro.transactions().search()
+				.byDateRange(builder, 1, 10).getData();
 		return data;
 	}
 
