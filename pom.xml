@@ -65,6 +65,16 @@
 			<artifactId>weld-spring-boot-starter</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.joinfaces</groupId>
+			<artifactId>security-spring-boot-starter</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.joinfaces</groupId>
+			<artifactId>omnifaces3-spring-boot-starter</artifactId>
+		</dependency>
+
 		<!-- Mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -90,50 +100,25 @@
 			<artifactId>font-awesome</artifactId>
 			<version>4.7.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>br.com.uol.pagseguro</groupId>
+			<artifactId>pagseguro-api</artifactId>
+			<version>4.3.2</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.boot</groupId> -->
-<!-- 			<artifactId>spring-boot-starter-thymeleaf</artifactId> -->
-<!-- 		</dependency> -->
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.thymeleaf.extras</groupId> -->
-<!-- 			<artifactId>thymeleaf-extras-springsecurity5</artifactId> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.boot</groupId> -->
-<!-- 			<artifactId>spring-boot-starter-web</artifactId> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.webjars</groupId> -->
-<!-- 			<artifactId>webjars-locator</artifactId> -->
-<!-- 			<version>0.32</version> -->
-<!-- 		</dependency> -->
-
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.webjars</groupId> -->
-<!-- 			<artifactId>jquery</artifactId> -->
-<!-- 			<version>2.1.1</version> -->
-<!-- 		</dependency> -->
-
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.webjars</groupId> -->
-<!-- 			<artifactId>bootstrap</artifactId> -->
-<!-- 			<version>3.2.0</version> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.7.0</version>
+		</dependency>
 	</dependencies>
-
-	<!-- https://mvnrepository.com/artifact/br.com.uol.pagseguro/pagseguro-api -->
-	<dependency>
-		<groupId>br.com.uol.pagseguro</groupId>
-		<artifactId>pagseguro-api</artifactId>
-		<version>4.3.2</version>
-	</dependency>
-
 
 	<repositories>
 		<repository>
@@ -141,6 +126,10 @@
 			<name>PrimeFaces Maven Repository</name>
 			<url>http://repository.primefaces.org</url>
 			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>jaspersoft</id>
+			<url>http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/</url>
 		</repository>
 	</repositories>
 	<build>
