@@ -31,7 +31,7 @@ public class CrudUtils {
 		entidade.setPermissoes(permissoesPerfil(entidade));
 
 		if (isColaborador(entidade)) {
-			if(entidade.getSenha() != null) {
+			if (entidade.getSenha() != null) {
 				MessagesUtil.criarMensagemDeErro("Email já cadastrado!");
 			} else {
 				gravarCadastro(entidade);
@@ -47,9 +47,10 @@ public class CrudUtils {
 			if (entidade.getAtivo()) {
 				MessagesUtil.criarMensagemDeInformacao("Colaborador " + entidade.getNome() + "  salvo.");
 			}
-			entidade = new Colaborador();
 		} catch (final Exception e) {
 			MessagesUtil.criarMensagemDeErro(e.getMessage());
+		} finally {
+			entidade = new Colaborador();
 		}
 	}
 
@@ -60,9 +61,10 @@ public class CrudUtils {
 		try {
 			this.colaboradorRepository.save(entidade);
 			MessagesUtil.criarMensagemDeInformacao("Colaborador" + entidade.getNome() + "  alterado.");
-			entidade = new Colaborador();
 		} catch (final Exception e) {
 			MessagesUtil.criarMensagemDeErro(e.getMessage());
+		} finally {
+			entidade = new Colaborador();
 		}
 	}
 

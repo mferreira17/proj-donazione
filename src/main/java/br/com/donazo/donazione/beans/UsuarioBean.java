@@ -122,7 +122,7 @@ public class UsuarioBean extends CrudUtils implements Serializable {
 
 	public boolean isAdministrador() {
 		Character perfil = getColaboradorLogado().getPerfil();
-		if (perfil == TipoPerfilUsuario.ADMINISTRADOR.getValor()) {
+		if (perfil.equals(TipoPerfilUsuario.ADMINISTRADOR.getValor())) {
 			return true;
 		} else {
 			return false;
